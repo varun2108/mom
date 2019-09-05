@@ -1,4 +1,8 @@
 package com.mom.model;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
+
+import com.mom.DAO.Enc_Dec;
 
 public class Employees {
 	private String emp_name,emp_mail,emp_password,emp_designation,emp_startdate;
@@ -32,7 +36,8 @@ public class Employees {
 	 * @return the emp_password
 	 */
 	public String getEmp_password() {
-		return emp_password;
+		 String encripted_password=Enc_Dec.encode(emp_password);
+		 return encripted_password;
 	}
 	/**
 	 * @param emp_password the emp_password to set
@@ -100,5 +105,6 @@ public class Employees {
 	public void setEmp_status(boolean emp_status) {
 		this.emp_status = emp_status;
 	}
+	
 
 }
