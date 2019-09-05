@@ -26,12 +26,12 @@ public class LoginServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		response.setContentType("text/html");
-		String email = request.getParameter("u");
-		String pass = request.getParameter("p");
+		Integer Emp_id = request.getParameter("u");
+		String Emp_pass = request.getParameter("p");
 		PrintWriter out = response.getWriter();
 		
 		
-		if (LoginDAO.validate(email, pass)) {
+		if (LoginDAO.validate(Emp_id, Emp_pass)) {
 			HttpSession session = request.getSession(true);
 			session.setAttribute("user", email);
 			

@@ -5,15 +5,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 public class LoginDAO {
-	public static boolean validate(String email, String pass) {
+	public static boolean validate(Integer Emp_id, String Emp_password) {
 		boolean status = false;
 
 		try {
 			Connection con = EmployeeDAO.getConnection();
 			PreparedStatement ps = con.prepareStatement("select * from employees where emp_id=? and emp_pass=?");
 
-			ps.setString(1, email);
-			ps.setString(2, pass);
+			ps.setInt(1, Emp_id);
+			ps.setString(2, Emp_password);
 
 			ResultSet rs = ps.executeQuery();
 			status = rs.next();

@@ -4,6 +4,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mom.model.Employees;
+
 
 
 public class EmployeeDAO {
@@ -14,37 +16,41 @@ public class EmployeeDAO {
 
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			System.out.println("Connecting to database...");
-			con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521/xe", "adarsh", "adarsh");
+			con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521/xe", "MOM", "redhat");
 		} catch (Exception e) {
 			System.out.println(e);
 		}
 		return con;
 	}
 
-	public static int insertCustomer(Customer c) {
+	public static int insertEmployees(Employees e) {
 		int status = 0;
 
 		try {
 			Connection con = EmployeeDAO.getConnection();
-			PreparedStatement ps = con.prepareStatement("insert into users100 values(user_id100.NEXTVAL,?,?,?,?)");
+			PreparedStatement ps = con.prepareStatement("insert into employees values(user_id100.NEXTVAL,?,?,?,?)");
 
-			ps.setString(1, c.getName());
-			ps.setString(2, c.getEmail());
-			ps.setString(3, c.getPassword());
-			ps.setString(4, c.getCountry());
+			ps.setInt(1, e.getEmp_id());
+			ps.setString(2, e.getEmp_name());
+			ps.setString(3, e.getEmp_mail());
+			ps.setString(4, e.getEmp_password());
+			ps.setString(5, e.getEmp_designation());
+			ps.setInt(6, e.getDept_id());
+			ps.setBoolean(7, e.isEmp_status());
+			ps.setString(8, e.getEmp_startdate());
 
 			status = ps.executeUpdate();
 			con.close();
 
-		} catch (Exception e) {
-			System.out.println(e);
+		} catch (Exception ex) {
+			System.out.println(ex);
 		}
 
 		return status;
 	}
 
-	public static List<Customer> getAllEmployees() {
-		List<Customer> list = new ArrayList<Customer>();
+	public static List<Employees> getAllEmployees() {
+		List<Employees> list = new ArrayList<Employees>();
 		try {
 			Connection con = EmployeeDAO.getConnection();
 
@@ -52,15 +58,15 @@ public class EmployeeDAO {
 			ResultSet rs = ps.executeQuery();
 
 			while (rs.next()) {
-				Customer c = new Customer();
+				Employees e = new Employees();
 
-				c.setId(rs.getInt(1));
-				c.setName(rs.getString(2));
-				c.setPassword(rs.getString(3));
-				c.setEmail(rs.getString(4));
-				c.setCountry(rs.getString(5));
+				e.setId(rs.getInt(1));
+				e.setName(rs.getString(2));
+				e.setPassword(rs.getString(3));
+				e.setEmail(rs.getString(4));
+				e.setCountry(rs.getString(5));
 
-				list.add(c);
+				list.add(e);
 			}
 			con.close();
 
@@ -70,8 +76,8 @@ public class EmployeeDAO {
 		return list;
 	}
 
-	public static Customer getCustomerById(long id) {
-		Customer c = new Customer();
+	public static Employees getEmployeesById(long id) {
+		Employees e = new Employees();
 
 		try {
 			Connection con = EmployeeDAO.getConnection();
@@ -81,11 +87,11 @@ public class EmployeeDAO {
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
 
-				c.setId(rs.getLong(1));
-				c.setName(rs.getString(2));
-				c.setPassword(rs.getString(3));
-				c.setEmail(rs.getString(3));
-				c.setCountry(rs.getString(4));
+				e.setId(rs.getLong(1));
+				e.setName(rs.getString(2));
+				e.setPassword(rs.getString(3));
+				e.setEmail(rs.getString(3));
+				e.setCountry(rs.getString(4));
 
 			}
 			con.close();
@@ -97,7 +103,7 @@ public class EmployeeDAO {
 		return c;
 	}
 
-	public static int deleteCustomer(long id) {
+	public static int deleteEmployees(long id) {
 		int status = 0;
 
 		try {
@@ -113,7 +119,7 @@ public class EmployeeDAO {
 		}
 		return status;
 	}
-	public static int updateCustomer(Customer e){  
+	public static int updateEmployees(Employees e){  
         int status=0;  
         try{  
             Connection con=EmployeeDAO.getConnection();  

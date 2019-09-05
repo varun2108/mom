@@ -1,5 +1,7 @@
 package com.mom.model;
 
+import com.mom.DAO.Enc_Dec;
+
 public class Login {
 	private String emp_password;
 	private int emp_id;
@@ -7,7 +9,8 @@ public class Login {
 	 * @return the emp_password
 	 */
 	public String getEmp_password() {
-		return emp_password;
+		 String encripted_password=Enc_Dec.encode(emp_password);
+		 return encripted_password;
 	}
 	/**
 	 * @param emp_password the emp_password to set
