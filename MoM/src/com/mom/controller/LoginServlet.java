@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.mom.DAO.LoginDAO;
+import com.mom.model.Login;
 
 
 @WebServlet("/LoginServlet")
@@ -26,17 +27,20 @@ public class LoginServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		response.setContentType("text/html");
-		Integer Emp_id = request.getParameter("u");
-		String Emp_pass = request.getParameter("p");
+		Integer Emp_id =Integer.parseInt(request.getParameter("emp_id"));
+		String Emp_pass = request.getParameter("emp_password");
 		PrintWriter out = response.getWriter();
 		
+		Login employee=new Login();
+		employee.setEmp_id(Emp_id);
+		employee.setEmp_password(Emp_pass);
 		
-		if (LoginDAO.validate(Emp_id, Emp_pass)) {
-			HttpSession session = request.getSession(true);
-			session.setAttribute("user", email);
+		if (LoginDAO.validate(employee)) {
+			HttpSession session = request.getSession(false);
+			session.setAttribute("user", Emp_id);
 			
 			
-			RequestDispatcher rd = request.getRequestDispatcher("ViewCustomers.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("UserDashboard.html");
 		rd.forward(request, response);
 			out.print("login successfull");
 			

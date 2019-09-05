@@ -9,8 +9,7 @@ public class Login {
 	 * @return the emp_password
 	 */
 	public String getEmp_password() {
-		 String encripted_password=Enc_Dec.encode(emp_password);
-		 return encripted_password;
+		 return emp_password;
 	}
 	/**
 	 * @param emp_password the emp_password to set
