@@ -8,21 +8,21 @@ import com.mom.model.Employees;
 
 
 
-public class EmployeeDAO {
+public class ConnectionDAO {
 	public static Connection getConnection() {
 		Connection con = null;
 
 		try {
 
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-			System.out.println("Connecting to database...");
 			con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521/xe", "MOM", "redhat");
 		} catch (Exception e) {
+			System.out.println("here");
 			System.out.println(e);
 		}
 		return con;
 	}
-
+/*
 	public static int insertEmployees(Employees e) {
 		int status = 0;
 
@@ -137,5 +137,5 @@ public class EmployeeDAO {
           
         return status;  
     } 
-
+*/
 }

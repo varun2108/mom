@@ -3,6 +3,7 @@ package com.mom.DAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 
 import javax.servlet.http.HttpSession;
 
@@ -13,20 +14,25 @@ public class LoginDAO {
 		boolean status = false;
 
 		try {
-			Connection con = EmployeeDAO.getConnection();
-			PreparedStatement ps = con.prepareStatement("select * from employees where emp_id=? and emp_pass=?");
-
-			ps.setInt(1, employee.getEmp_id());
-			ps.setString(2,Enc_Dec.encode(employee.getEmp_password()));
-
-			ResultSet rs = ps.executeQuery();
-			status = rs.next();
-			Object request;
+			Connection con = ConnectionDAO.getConnection();
+			   PreparedStatement ps = con.prepareStatement("select * from employees where emp_id=? and emp_pass=?");
+			    ps.setInt(1, employee.getEmp_id());
+			   ps.setString(2,employee.getEmp_password());
 			
-		} catch (Exception e) {
-			System.out.println(e);
-		}
+			   System.out.println(ps.toString());
+		       
+			   ResultSet rs=ps.executeQuery();
+			   
+			   status=rs.next();
+			
+			
+			  
+			} catch (Exception e) {
+			    e.printStackTrace();
+			  
+			}
 		return status;
+		 
 	}
-
+	
 }

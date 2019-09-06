@@ -37,7 +37,7 @@ public class LoginServlet extends HttpServlet {
 		
 		if (LoginDAO.validate(employee)) {
 			HttpSession session = request.getSession(false);
-			session.setAttribute("user", Emp_id);
+			//session.setAttribute("user", Emp_id);
 			
 			
 			RequestDispatcher rd = request.getRequestDispatcher("UserDashboard.html");
