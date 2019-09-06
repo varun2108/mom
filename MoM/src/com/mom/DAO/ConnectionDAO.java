@@ -1,6 +1,7 @@
 package com.mom.DAO;
 
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,22 +28,27 @@ public class ConnectionDAO {
 
 		try {
 			Connection con = ConnectionDAO.getConnection();
-			PreparedStatement ps = con.prepareStatement("insert into employees values(emp_id.NEXTVAL,?,?,?,?,?,?,?)");
+			PreparedStatement ps = con.prepareStatement("insert into employees(emp_id,emp_name,emp_email,emp_pass,emp_desg,dept_id,emp_status) values(emp_id.NEXTVAL,?,?,?,?,?,1)");
 
-			ps.setInt(1, e.getemp_id());
-			ps.setString(2, e.getemp_name());
-			ps.setString(3, e.getemp_mail());
-			ps.setString(4, e.getemp_pass());
-			ps.setString(5, e.getemp_desg());
-			ps.setInt(6, e.getdept_id());
-			ps.setBoolean(7, e.isemp_status());
-			ps.setString(8, e.getemp_startdate());
+			//ps.setInt(1, e.getemp_id());
+			ps.setString(1, e.getemp_name());
+			ps.setString(2, e.getemp_mail());
+			ps.setString(3, Enc_Dec.encode(e.getemp_pass()));
+			ps.setString(4, e.getemp_desg());
+			ps.setInt(5, e.getdept_id());
+			//ps.setBoolean(7, e.isemp_status());
+			//String sdate=e.getemp_startdate();
+			//Date date = (Date) new SimpleDateFormat("yyyy-MM-dd").parse(sdate);
+			 
+			//java.sql.Date dateJoin= new java.sql.Date( date.getTime() ); 
+			//ps.setDate(6, dateJoin);
 
 			status = ps.executeUpdate();
 			con.close();
 
 		} catch (Exception E) {
 			System.out.println(E);
+			System.out.println("here");
 		}
 
 		return status;

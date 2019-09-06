@@ -16,45 +16,51 @@
 
 		<div class="wrapper" style="background-image: url('images/7.jpg');">
 			<div class="inner">
-				<form action="">
+				<form action="InsertServlet">
 					<h3 style="color:brown"; "font-family:Comic Sans MS";>Registration Form</style></h3>
 					
 						
 						<div class="form-wrapper">
 							<label for="">Employee Name</label>
-							<input type="text" class="form-control" required="">
+							<input type="text" class="form-control" name="emp_name" required="">
 						</div>
 					
 					<div class="form-wrapper">
 						<label for="">Email</label>
-						<input type="text" class="form-control" required="">
+						<input type="text" class="form-control" name="emp_email" required="">
 					</div>
 					<div class="form-wrapper">
 						<label for="">Password</label>
-						<input type="password" class="form-control" required="">
+						<input type="password" class="form-control" name="emp_pass" required="">
 					</div>
 						<div class="form-wrapper">
                                             <div class="maxl">
 											<label>Designation</label>
                                                 <label class="radio inline"> 
 
-                                                    <input type="radio" name="status" value="admin" checked>
+                                                    <input type="radio" name="emp_desg" value="admin" checked>
                                                     <span>  Admin </span> 
                                                 
                                                 
-                                                    <input type="radio" name="status" value="employee">
+                                                    <input type="radio" name="emp_desg" value="employee">
                                                     <span> Employee </span> 
                                                 </label>
                                             </div>
                     </div>
 					<div class="form-wrapper">
 						<label for="">Department ID</label>
-						<input type="text" class="form-control" required="">
+						<select class="form-control" name="dept_id">
+  								<option value="1">HR</option>
+ 								 <option value="2">Sales</option>
+ 								 <option value="3">SAP</option>
+  								<option value="4">Testing</option>
+  									<option value="5">Test</option>
+						</select>
 					</div>
 				
 					<div class="form-wrapper">
 						<label for="">Start Date</label>
-						<input type="date" class="form-control" required="">
+						<input type="date" class="form-control" name="emp_startdate" required="">
 					</div>
 					
 					

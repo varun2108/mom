@@ -34,8 +34,7 @@ public class Employees {
 	 * @return the emp_password
 	 */
 	public String getemp_pass() {
-		 String encripted_password=Enc_Dec.encode(getemp_pass());
-		 return encripted_password;
+		 return emp_pass;
 	}
 	/**
 	 * @param emp_password the emp_password to set

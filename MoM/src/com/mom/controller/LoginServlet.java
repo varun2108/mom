@@ -29,9 +29,10 @@ public class LoginServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		try{
 		response.setContentType("text/html");
 		Integer Emp_id =Integer.parseInt(request.getParameter("emp_id"));
-		String Emp_pass = request.getParameter("emp_pass");
+		String Emp_pass = request.getParameter("emp_password");
 		PrintWriter out = response.getWriter();
 		
 		Login employee=new Login();
@@ -63,7 +64,10 @@ public class LoginServlet extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("Login.html");
 			rd.include(request, response);
 		}
-		out.close();
+		out.close();}
+	catch(Exception e){
+		System.out.println(e+"here");
+	}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

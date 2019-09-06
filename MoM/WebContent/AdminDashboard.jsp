@@ -8,5 +8,6 @@
 </head>
 <body>
 	Admin Dash Board
+	<a href="Registration_form.html">user Registration</a>
 </body>
 </html>
