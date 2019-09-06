@@ -30,7 +30,7 @@ public class InsertServlet extends HttpServlet {
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		
-		 int emp_id=Integer.parseInt(request.getParameter("emp_id"));  
+		 	int emp_id=Integer.parseInt(request.getParameter("emp_id"));  
 	        String emp_name=request.getParameter("emp_name");  
 	        String emp_email=request.getParameter("emp_email");  
 	        String emp_pass=request.getParameter("emp_pass");
