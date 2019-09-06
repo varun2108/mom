@@ -2,7 +2,9 @@ package com.mom.controller;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,6 +16,7 @@ import javax.servlet.http.HttpSession;
 
 import com.mom.DAO.LoginDAO;
 import com.mom.model.Login;
+
 
 
 @WebServlet("/LoginServlet")
@@ -35,14 +38,24 @@ public class LoginServlet extends HttpServlet {
 		employee.setEmp_id(Emp_id);
 		employee.setEmp_password(Emp_pass);
 		
-		if (LoginDAO.validate(employee)) {
-			HttpSession session = request.getSession(false);
-			//session.setAttribute("user", Emp_id);
-			
-			
-			RequestDispatcher rd = request.getRequestDispatcher("UserDashboard.html");
-		rd.forward(request, response);
-			out.print("login successfull");
+		ArrayList user=LoginDAO.validate(employee);
+	
+		String role=user.get(1).toString();
+	//String role=user.get(2).toString();
+		
+		if (!(user.get(0).equals(0))) {
+			HttpSession session = request.getSession(true);
+			session.setAttribute("Emp_id", Emp_id);
+			session.setAttribute("Role",role );
+
+			if(role.equals("admin")){
+			RequestDispatcher rd = request.getRequestDispatcher("AdminDashboard.jsp");
+			rd.forward(request, response);
+			}
+			else{
+				RequestDispatcher rd = request.getRequestDispatcher("UserDashboard.jsp");
+				rd.forward(request, response);
+			}
 			
 		} else {
 			

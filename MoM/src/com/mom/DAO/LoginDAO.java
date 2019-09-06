@@ -4,14 +4,19 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
 import com.mom.model.Login;
 
 public class LoginDAO {
-	public static boolean validate(Login employee) {
-		boolean status = false;
+	public static ArrayList validate(Login employee) {
+		int status = 0;
+		String role=null;
+		 ResultSet rs;
 
 		try {
 			Connection con = ConnectionDAO.getConnection();
@@ -21,9 +26,12 @@ public class LoginDAO {
 			
 			   System.out.println(ps.toString());
 		       
-			   ResultSet rs=ps.executeQuery();
+			   rs=ps.executeQuery();
 			   
-			   status=rs.next();
+			   while(rs.next()){
+				   status=rs.getInt(1);
+				   role=rs.getString(5);
+			   }
 			
 			
 			  
@@ -31,7 +39,11 @@ public class LoginDAO {
 			    e.printStackTrace();
 			  
 			}
-		return status;
+		ArrayList l=new ArrayList();
+		l.add(status);
+		l.add(role);
+		
+		return l;
 		 
 	}
 	
