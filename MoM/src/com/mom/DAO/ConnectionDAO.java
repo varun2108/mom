@@ -6,8 +6,6 @@ import java.util.List;
 
 import com.mom.model.Employees;
 
-
-
 public class ConnectionDAO {
 	public static Connection getConnection() {
 		Connection con = null;
@@ -21,29 +19,30 @@ public class ConnectionDAO {
 			System.out.println(e);
 		}
 		return con;
+
+		
 	}
-/*
 	public static int insertEmployees(Employees e) {
 		int status = 0;
 
 		try {
-			Connection con = EmployeeDAO.getConnection();
-			PreparedStatement ps = con.prepareStatement("insert into employees values(user_id100.NEXTVAL,?,?,?,?)");
+			Connection con = ConnectionDAO.getConnection();
+			PreparedStatement ps = con.prepareStatement("insert into employees values(emp_id.NEXTVAL,?,?,?,?,?,?,?)");
 
-			ps.setInt(1, e.getEmp_id());
-			ps.setString(2, e.getEmp_name());
-			ps.setString(3, e.getEmp_mail());
-			ps.setString(4, e.getEmp_password());
-			ps.setString(5, e.getEmp_designation());
-			ps.setInt(6, e.getDept_id());
-			ps.setBoolean(7, e.isEmp_status());
-			ps.setString(8, e.getEmp_startdate());
+			ps.setInt(1, e.getemp_id());
+			ps.setString(2, e.getemp_name());
+			ps.setString(3, e.getemp_mail());
+			ps.setString(4, e.getemp_pass());
+			ps.setString(5, e.getemp_desg());
+			ps.setInt(6, e.getdept_id());
+			ps.setBoolean(7, e.isemp_status());
+			ps.setString(8, e.getemp_startdate());
 
 			status = ps.executeUpdate();
 			con.close();
 
-		} catch (Exception ex) {
-			System.out.println(ex);
+		} catch (Exception E) {
+			System.out.println(E);
 		}
 
 		return status;
@@ -52,19 +51,23 @@ public class ConnectionDAO {
 	public static List<Employees> getAllEmployees() {
 		List<Employees> list = new ArrayList<Employees>();
 		try {
-			Connection con = EmployeeDAO.getConnection();
+			Connection con = ConnectionDAO.getConnection();
 
-			PreparedStatement ps = con.prepareStatement("select * from users100");
+			PreparedStatement ps = con.prepareStatement("select * from employees");
 			ResultSet rs = ps.executeQuery();
 
 			while (rs.next()) {
 				Employees e = new Employees();
 
-				e.setId(rs.getInt(1));
-				e.setName(rs.getString(2));
-				e.setPassword(rs.getString(3));
-				e.setEmail(rs.getString(4));
-				e.setCountry(rs.getString(5));
+				e.setemp_id(rs.getInt(1));
+				e.setemp_name(rs.getString(2));
+				e.setemp_mail(rs.getString(3));
+				e.setemp_pass(rs.getString(4));
+				e.setemp_desg(rs.getString(5));
+				e.setdept_id(rs.getInt(6));
+				e.setemp_status(rs.getBoolean(7));
+				e.setemp_startdate(rs.getString(8));
+
 
 				list.add(e);
 			}
@@ -76,22 +79,26 @@ public class ConnectionDAO {
 		return list;
 	}
 
-	public static Employees getEmployeesById(long id) {
+	public static Employees getCustomerById(int emp_id) {
 		Employees e = new Employees();
 
 		try {
-			Connection con = EmployeeDAO.getConnection();
-			PreparedStatement ps = con.prepareStatement("select * from users100 where id=?");
+			Connection con = ConnectionDAO.getConnection();
+			PreparedStatement ps = con.prepareStatement("select * from employees where emp_id=?");
 
-			ps.setLong(1, id);
+			ps.setInt(1, emp_id);
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
 
-				e.setId(rs.getLong(1));
-				e.setName(rs.getString(2));
-				e.setPassword(rs.getString(3));
-				e.setEmail(rs.getString(3));
-				e.setCountry(rs.getString(4));
+
+				e.setemp_id(rs.getInt(1));
+				e.setemp_name(rs.getString(2));
+				e.setemp_mail(rs.getString(3));
+				e.setemp_pass(rs.getString(4));
+				e.setemp_desg(rs.getString(5));
+				e.setdept_id(rs.getInt(6));
+				e.setemp_status(rs.getBoolean(7));
+				e.setemp_startdate(rs.getString(8));
 
 			}
 			con.close();
@@ -100,17 +107,17 @@ public class ConnectionDAO {
 			System.out.println(E);
 
 		}
-		return c;
+		return e;
 	}
 
-	public static int deleteEmployees(long id) {
+	public static int deactivateEmployees(int emp_id) {
 		int status = 0;
 
 		try {
-			Connection con = EmployeeDAO.getConnection();
-			PreparedStatement ps = con.prepareStatement("delete from users100 where id=?");
+			Connection con = ConnectionDAO.getConnection();
+			PreparedStatement ps = con.prepareStatement("delete from employees where emp_id=?");
 
-			ps.setLong(1, id);
+			ps.setInt(1, emp_id);
 			status = ps.executeUpdate();
 
 			con.close();
@@ -119,23 +126,4 @@ public class ConnectionDAO {
 		}
 		return status;
 	}
-	public static int updateEmployees(Employees e){  
-        int status=0;  
-        try{  
-            Connection con=EmployeeDAO.getConnection();  
-            PreparedStatement ps=con.prepareStatement(  
-      "update users100 set name=?,password=?,email=?,country=? where id=?");  
-            ps.setString(1,e.getName());  
-            ps.setString(2,e.getPassword());  
-            ps.setString(3,e.getEmail());  
-            ps.setString(4,e.getCountry());  
-            ps.setLong(5,e.getId());  
-              
-            status=ps.executeUpdate();  
-            con.close();  
-        }catch(Exception ex){ex.printStackTrace();}  
-          
-        return status;  
-    } 
-*/
 }
