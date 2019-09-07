@@ -57,7 +57,11 @@ public class InsertServlet extends HttpServlet {
 		
 		if(status>0)
 		{
-			out.print("<p> RECORD SAVED SUCCESSFULLY </p>");
+			
+			Employees e1=ConnectionDAO.getEmployeeByName(emp_name);
+			
+			request.setAttribute("employee", e1);
+				
 			request.getRequestDispatcher("Reg_Successful.jsp").include(request, response);
 		}
 		else

@@ -5,6 +5,7 @@ package com.mom.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,7 +16,7 @@ import com.mom.DAO.ConnectionDAO;
 
 
 
-@WebServlet("/DeleteServlet")
+@WebServlet("/DeactivateServlet")
 public class DeactivateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -30,11 +31,16 @@ public class DeactivateServlet extends HttpServlet {
 		String sid = request.getParameter("id");
 		
 		int id = Integer.parseInt(sid);
+		int status=0;
 		PrintWriter out= response.getWriter();
 		
-		ConnectionDAO.deactivateEmployees(id);
+		status=ConnectionDAO.deactivateEmployees(id);
+		if(status==1){
 		out.println("DEACTIVATED SUCCESSFULLY!!!");
-				
+		request.setAttribute("delstatus", status);
+		RequestDispatcher rd = request.getRequestDispatcher("view.jsp");
+		rd.forward(request, response);
+		}
 	}
 
 	

@@ -61,7 +61,7 @@ public class ConnectionDAO {
 		try {
 			Connection con = ConnectionDAO.getConnection();
 
-			PreparedStatement ps = con.prepareStatement("select * from employees");
+			PreparedStatement ps = con.prepareStatement("select * from employees where emp_status=1 order by emp_id");
 			ResultSet rs = ps.executeQuery();
 
 			while (rs.next()) {
@@ -86,6 +86,39 @@ public class ConnectionDAO {
 		}
 		return list;
 	}
+	
+	//for getting employee dtails by name
+	public static Employees getEmployeeByName(String emp_name) {
+		Employees e = new Employees();
+
+		try {
+			Connection con = ConnectionDAO.getConnection();
+			PreparedStatement ps = con.prepareStatement("select * from employees where emp_name=? and emp_status=1 order by emp_startdate");
+
+			ps.setString(1, emp_name);
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+
+
+				e.setemp_id(rs.getInt(1));
+				e.setemp_name(rs.getString(2));
+				e.setemp_mail(rs.getString(3));
+				e.setemp_pass(rs.getString(4));
+				e.setemp_desg(rs.getString(5));
+				e.setdept_id(rs.getInt(6));
+				e.setemp_status(rs.getBoolean(7));
+				e.setemp_startdate(rs.getString(8));
+
+			}
+			con.close();
+
+		} catch (Exception E) {
+			System.out.println(E);
+
+		}
+		return e;
+	}
+
 
 	public static Employees getCustomerById(int emp_id) {
 		Employees e = new Employees();
