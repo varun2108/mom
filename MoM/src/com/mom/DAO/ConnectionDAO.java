@@ -28,7 +28,7 @@ public class ConnectionDAO {
 
 		try {
 			Connection con = ConnectionDAO.getConnection();
-			PreparedStatement ps = con.prepareStatement("insert into employees(emp_id,emp_name,emp_email,emp_pass,emp_desg,dept_id,emp_status) values(emp_id.NEXTVAL,?,?,?,?,?,1)");
+			PreparedStatement ps = con.prepareStatement("insert into employees values(emp_id.NEXTVAL,?,?,?,?,?,1,?)");
 
 			//ps.setInt(1, e.getemp_id());
 			ps.setString(1, e.getemp_name());
@@ -37,11 +37,13 @@ public class ConnectionDAO {
 			ps.setString(4, e.getemp_desg());
 			ps.setInt(5, e.getdept_id());
 			//ps.setBoolean(7, e.isemp_status());
-			//String sdate=e.getemp_startdate();
+			String sdate=e.getemp_startdate();
 			//Date date = (Date) new SimpleDateFormat("yyyy-MM-dd").parse(sdate);
-			 
+			SimpleDateFormat sdf1=new SimpleDateFormat("yyyy-MM-dd");
 			//java.sql.Date dateJoin= new java.sql.Date( date.getTime() ); 
-			//ps.setDate(6, dateJoin);
+			java.util.Date date=sdf1.parse(sdate);
+			java.sql.Date sqdate=new java.sql.Date(date.getTime());
+			ps.setDate(6, sqdate);
 
 			status = ps.executeUpdate();
 			con.close();
