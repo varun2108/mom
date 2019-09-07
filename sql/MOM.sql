@@ -14,7 +14,7 @@ create sequence emp_id start with 100 increment by 1 nocache nocycle;
 
 --MoM table created(data type CLOB is used for mom_pointsdiscussed)
 
-create table mom(mom_id int primary key, mom_name varchar2(30), mom_startdate date, mom_creatorid int,mom_pointsdiscussed clob,mom_decisiontaken varchar2(500), foreign key(mom_creatorid) references employees(emp_id)); 
+create table mom(mom_id int primary key, mom_name varchar2(30), mom_startdate date,mom_enddate date, mom_creatorid int,mom_pointsdiscussed clob,mom_decisiontaken varchar2(500), foreign key(mom_creatorid) references employees(emp_id)); 
 
 --sequence created for MoM_id
 
