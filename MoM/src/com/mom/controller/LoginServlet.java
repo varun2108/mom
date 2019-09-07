@@ -41,11 +41,12 @@ public class LoginServlet extends HttpServlet {
 		
 		ArrayList user=LoginDAO.validate(employee);
 	
-		String role=user.get(1).toString();
+	
 	//String role=user.get(2).toString();
 		
-		if (!(user.get(0).equals(0))) {
+		if ((boolean) (user.get(0))) {
 			HttpSession session = request.getSession(true);
+			String role=user.get(1).toString();
 			session.setAttribute("Emp_id", Emp_id);
 			session.setAttribute("Role",role );
 

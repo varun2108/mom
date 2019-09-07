@@ -14,23 +14,25 @@ import com.mom.model.Login;
 
 public class LoginDAO {
 	public static ArrayList validate(Login employee) {
-		int status = 0;
+		boolean status = false;
 		String role=null;
 		 ResultSet rs;
+		 ArrayList l=new ArrayList();
 
 		try {
 			Connection con = ConnectionDAO.getConnection();
-			   PreparedStatement ps = con.prepareStatement("select * from employees where emp_id=? and emp_pass=?");
+			   PreparedStatement ps = con.prepareStatement("select * from employees where emp_id=? and emp_pass=? and emp_status=1");
 			    ps.setInt(1, employee.getemp_id());
-			   ps.setString(2,employee.getemp_pass());
-			System.out.println(employee.getemp_id()+" "+employee.getemp_pass());
-			   System.out.println(ps.toString());
+			   ps.setString(2,Enc_Dec.encode(employee.getemp_pass()));
 		       
 			   rs=ps.executeQuery();
-			   
-			   while(rs.next()){
-				   status=rs.getInt(1);
+			   status=rs.next();
+			   System.out.println(status);
+			   l.add(status);
+			   if(status){
 				   role=rs.getString(5);
+					l.add(role);
+
 			   }
 			
 			
@@ -39,9 +41,8 @@ public class LoginDAO {
 			    e.printStackTrace();
 			  
 			}
-		ArrayList l=new ArrayList();
-		l.add(status);
-		l.add(role);
+		
+		
 		
 		return l;
 		 
