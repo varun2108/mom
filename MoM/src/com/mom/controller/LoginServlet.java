@@ -41,7 +41,7 @@ public class LoginServlet extends HttpServlet {
 		
 		ArrayList user=LoginDAO.validate(employee);
 	
-	
+	System.out.println("servlet");
 	//String role=user.get(2).toString();
 		
 		if ((boolean) (user.get(0))) {
