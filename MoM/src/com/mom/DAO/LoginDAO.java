@@ -16,6 +16,7 @@ public class LoginDAO {
 	public static ArrayList validate(Login employee) {
 		boolean status = false;
 		String role=null;
+		String name=null;
 		 ResultSet rs;
 		 ArrayList l=new ArrayList();
 
@@ -30,8 +31,10 @@ public class LoginDAO {
 			   System.out.println(status);
 			   l.add(status);
 			   if(status){
+				   name=rs.getString(2);
 				   role=rs.getString(5);
 					l.add(role);
+					l.add(name);
 
 			   }
 			

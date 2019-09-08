@@ -49,10 +49,9 @@ public class LoginServlet extends HttpServlet {
 			String role=user.get(1).toString();
 			session.setAttribute("Emp_id", Emp_id);
 			session.setAttribute("Role",role );
-
+			session.setAttribute("user",user.get(2));
 			if(role.equals("admin")){
-			RequestDispatcher rd = request.getRequestDispatcher("AdminDashboard.jsp");
-			rd.forward(request, response);
+			response.sendRedirect("AdminDashboard.jsp");  
 			}
 			else{
 				RequestDispatcher rd = request.getRequestDispatcher("UserDashboard.jsp");
@@ -67,7 +66,7 @@ public class LoginServlet extends HttpServlet {
 		}
 		out.close();}
 	catch(Exception e){
-		System.out.println(e+"here");
+		System.out.println(e);
 	}
 	}
 

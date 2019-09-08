@@ -35,9 +35,12 @@ public class LogoutServlet extends HttpServlet {
 		HttpSession session1 = request.getSession(false);
 		session.removeAttribute("emp_id");
 		session1.removeAttribute("Role");
+		session1.removeAttribute("user");
 		request.getSession().invalidate();
 		
 		out.println("Logged out successfully");
+		
+		response.sendRedirect("index.html");  
 				
 	}
 

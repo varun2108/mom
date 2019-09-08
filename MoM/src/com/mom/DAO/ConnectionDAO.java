@@ -93,7 +93,7 @@ public class ConnectionDAO {
 
 		try {
 			Connection con = ConnectionDAO.getConnection();
-			PreparedStatement ps = con.prepareStatement("select * from employees where emp_name=? and emp_status=1 order by emp_startdate");
+			PreparedStatement ps = con.prepareStatement("select * from employees where emp_name=? and emp_status=1 order by emp_startdate DESC");
 
 			ps.setString(1, emp_name);
 			ResultSet rs = ps.executeQuery();
@@ -150,13 +150,35 @@ public class ConnectionDAO {
 		}
 		return e;
 	}
+	public static int updateEmployees(Employees e) {
+		int status = 0;
+
+		try {
+			Connection con = ConnectionDAO.getConnection();
+			PreparedStatement ps = con.prepareStatement("update employees set emp_name=?,emp_email=?,emp_pass=?,emp_desg=?,dept_id=? where emp_id=?");
+
+			//
+			ps.setString(1, e.getemp_name());
+			ps.setString(2, e.getemp_mail());
+			ps.setString(3, Enc_Dec.encode(e.getemp_pass()));
+			ps.setString(4, e.getemp_desg());
+			ps.setInt(5, e.getdept_id());
+			ps.setInt(6, e.getemp_id());
+			
+			status = ps.executeUpdate();
+			con.close();
+		} catch (Exception E) {
+			System.out.println(E);
+		}
+		return status;
+	}
 
 	public static int deactivateEmployees(int emp_id) {
 		int status = 0;
 
 		try {
 			Connection con = ConnectionDAO.getConnection();
-			PreparedStatement ps = con.prepareStatement("delete from employees where emp_id=?");
+			PreparedStatement ps = con.prepareStatement("update employees set emp_status=0 where emp_id=?");
 
 			ps.setInt(1, emp_id);
 			status = ps.executeUpdate();
