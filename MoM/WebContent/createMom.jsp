@@ -102,11 +102,19 @@ background: #1f253d;
                         <div class="form-group col-md-12">
                                   <textarea id="comment" name="desisions taken" cols="40" rows="5" class="form-control" placeholder="desissions taken"></textarea>
                         </div>
+                        
                     </div>
-                       <div class="form-row col-md-12">
-                        <div class="form-group col-md-6">
-                                   <input id="inputState" name="no_of_p" placeholder="number of actions" class="form-control" type="number">
+                    <div class="form-row col-md-12">
+                     <div class="form-group">
+                                   <input id="no_of_act" name="no_of_o" placeholder="number of actions" class="form-control" type="number">
                     </div>
+                    <div class="form-group" id="foract">
+                                  
+                    </div>
+                    </div>
+                    
+                       
+                    
                                     
                     <div class="form-row">
                         <div class="form-group">

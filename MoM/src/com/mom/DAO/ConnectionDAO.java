@@ -28,7 +28,7 @@ public class ConnectionDAO {
 
 		try {
 			Connection con = ConnectionDAO.getConnection();
-			PreparedStatement ps = con.prepareStatement("insert into employees values(emp_id.NEXTVAL,?,?,?,?,?,1,?)");
+			PreparedStatement ps = con.prepareStatement("insert into employees(emp_id,emp_name,emp_email,emp_pass,emp_desg,dept_id,emp_status,emp_startdate) values(emp_id.NEXTVAL,?,?,?,?,?,1,?)");
 
 			//ps.setInt(1, e.getemp_id());
 			ps.setString(1, e.getemp_name());
