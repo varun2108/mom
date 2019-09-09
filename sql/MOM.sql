@@ -22,7 +22,7 @@ create sequence mom_id start with 1 increment by 1 nocache nocycle;
 
 --participants table created
 
-create table participants( emp_id int,mom_id int,meeting_time date, attendence number(1), primary key(emp_id,meeting_time), foreign key(mom_id) references mom(mom_id),foreign key(emp_id) references employees(emp_id));
+create table participants( emp_id int,mom_id int, attendence number(1), foreign key(mom_id) references mom(mom_id),foreign key(emp_id) references employees(emp_id));
 
 --action table created
 
