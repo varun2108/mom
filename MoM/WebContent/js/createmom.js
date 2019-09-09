@@ -15,7 +15,6 @@ $(document).ready(function(){
 		$("#foract").html('');
 	});
 	$("#inputState").blur(function(){
-		alert("hi");
 	        $.ajax({
 	            type: "GET",
 	            url: "GetEmployees",
@@ -51,7 +50,6 @@ function partcontrol(n){
                        +'<input type="radio" name="presence'+i+'" value="absent"> absent'
                        +'</div></div>';
 	}
-	alert(dyn);
 	$("#forpart").append(dyn);
 	
 }
@@ -61,7 +59,7 @@ function actcontrol(n){
 	dyn+='<input id="Full Name" name="action'+i+'" placeholder="Action'+i+'" class="form-control" type="text">';
                       
 	}
-	alert(dyn);
+	
 	$("#foract").append(dyn);
 }
 
