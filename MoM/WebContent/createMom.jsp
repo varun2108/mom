@@ -27,10 +27,10 @@ background: #1f253d;
 	<script>
 	
 	$(function() {
-		  $('#datetimepicker1').datetimepicker();
+		  $('#datetimepicker1').datetimepicker({format: 'YYYY-MM-DD HH:mm'});
 		});
 	$(function() {
-		  $('#datetimepicker2').datetimepicker();
+		  $('#datetimepicker2').datetimepicker({format: 'YYYY-MM-DD HH:mm'});
 		});
 </script>
 <body>
@@ -58,7 +58,7 @@ background: #1f253d;
                         </div>
                         <div class="form-group col-md-6">
                                    <input id="inputState" name="no_of_p" placeholder="number of participents" class="form-control" type="number">
-                                
+  									<input name="creatorid" type="hidden" value='<%=session.getAttribute("Emp_id") %>'>                              
                         </div>
                         <div id="forpart" class="col-md-12">
                         
@@ -124,7 +124,7 @@ background: #1f253d;
                     </div>
                     
                     <div class="form-row">
-                        <button type="submit" class="btn btn-danger">Submit</button>
+                        <button type="submit" class="btn btn-danger forval">Submit</button>
                     </div>
                 </form>
             </div>

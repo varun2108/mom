@@ -2,6 +2,7 @@ package com.mom.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.mom.DAO.LoginDAO;
 import com.mom.model.Login;
+import com.mom.model.Mom;
 
 /**
  * Servlet implementation class CreateMom
@@ -62,6 +64,18 @@ public class CreateMom extends HttpServlet {
 				actions[i]=request.getParameter(p);
 				
 			}
+			Integer creatorid =Integer.parseInt(request.getParameter("creatorid"));
+			Mom meating=new Mom();
+			meating.setMom_sub(subject);
+			meating.setMom_startdate(startdate);
+			meating.setMom_enddate(enddate);
+			meating.setCreator_id(creatorid);
+			meating.setMom_pointsdiscussed(pointsdiscussed);
+			meating.setMom_decisiontaken(desisionstaken);
+			meating.setMom_openitems(mom_open);
+			//DateTime dt1=new DateTime(startdate);
+			//SimpleDateFormat sdf1=new SimpleDateFormat("dd-MM-yyyy hh:mm");
+			//java.util.Date date=sdf1.parse(startdate);
 		}catch(Exception e){
 			System.out.println(e);
 		}
