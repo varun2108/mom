@@ -14,7 +14,7 @@ create sequence emp_id start with 100 increment by 1 nocache nocycle;
 
 --MoM table created(data type CLOB is used for mom_pointsdiscussed)
 
-create table mom(mom_id int primary key, mom_name varchar2(30), mom_startdate date,mom_enddate date, mom_creatorid int,mom_pointsdiscussed clob,mom_decisiontaken varchar2(500), foreign key(mom_creatorid) references employees(emp_id)); 
+create table mom(mom_id int primary key, mom_subject varchar2(100), mom_startdate date,mom_enddate date, mom_creatorid int,mom_pointsdiscussed clob,mom_decisiontaken clob,mom_openitems clob, foreign key(mom_creatorid) references employees(emp_id)); 
 
 --sequence created for MoM_id
 
@@ -22,7 +22,7 @@ create sequence mom_id start with 1 increment by 1 nocache nocycle;
 
 --participants table created
 
-create table participants( emp_id int,mom_id int,meeting_time date, attendence number(1), primary key(emp_id,meeting_time), foreign key(mom_id) references mom(mom_id),foreign key(emp_id) references employees(emp_id));
+create table participants( emp_id int,mom_id int, attendence number(1), foreign key(mom_id) references mom(mom_id),foreign key(emp_id) references employees(emp_id));
 
 --action table created
 
@@ -35,3 +35,24 @@ create sequence action_id start with 1 increment by 1 nocache nocycle;
 --action status table created
 
 create table action_status(action_id int, current_status varchar2(20),open timestamp,assigned timestamp,wip timestamp,ready_for_closure timestamp,closed timestamp,withdrawn timestamp,foreign key(action_id) references action(action_id));
+
+--inseriting values for database
+insert into departments values(1,'hr');
+
+--1 row created.
+
+insert into departments values(2,'Sales');
+
+--1 row created.
+
+insert into departments values(3,'SAP');
+
+--1 row created.
+
+insert into departments values(4,'Testing');
+
+--1 row created.
+
+insert into departments values(5,'Recrutement');
+
+--1 row created.
