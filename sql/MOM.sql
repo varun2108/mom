@@ -36,23 +36,23 @@ create sequence action_id start with 1 increment by 1 nocache nocycle;
 
 create table action_status(action_id int, current_status varchar2(20),open timestamp,assigned timestamp,wip timestamp,ready_for_closure timestamp,closed timestamp,withdrawn timestamp,foreign key(action_id) references action(action_id));
 
-// inseriting values for database
+--inseriting values for database
 insert into departments values(1,'hr');
 
-1 row created.
+--1 row created.
 
-SQL> insert into departments values(2,'Sales');
+insert into departments values(2,'Sales');
 
-1 row created.
+--1 row created.
 
-SQL> insert into departments values(3,'SAP');
+insert into departments values(3,'SAP');
 
-1 row created.
+--1 row created.
 
-SQL> insert into departments values(4,'Testing');
+insert into departments values(4,'Testing');
 
-1 row created.
+--1 row created.
 
-SQL> insert into departments values(5,'Recrutement');
+insert into departments values(5,'Recrutement');
 
-1 row created.
+--1 row created.
