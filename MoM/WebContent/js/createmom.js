@@ -23,16 +23,6 @@ $(document).ready(function(){
 	            }
 	        });
 	});
-	$("#forval").hover(function(){
-	$(".FullName").rules("add", 
-            {
-                number: true,
-                messages: {
-                    
-                    email: "choose a employee id",
-                  }
-            });
-	});
 });
 function test(){
 	var n=$("#inputState").val()

@@ -58,7 +58,7 @@ background: #1f253d;
                         </div>
                         <div class="form-group col-md-6">
                                    <input id="inputState" name="no_of_p" placeholder="number of participents" class="form-control" type="number">
-  									<input name="creatorid" type="hidden" value='<%=session.getAttribute("Emp_id") %>'>                              
+  									<input name="creatorid" type="hidden" value='<%=session.getAttribute("Emp_id") %>'>                           
                         </div>
                         <div id="forpart" class="col-md-12">
                         

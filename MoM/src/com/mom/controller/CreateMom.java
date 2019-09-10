@@ -12,8 +12,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.mom.DAO.LoginDAO;
+import com.mom.model.Action;
 import com.mom.model.Login;
 import com.mom.model.Mom;
+import com.mom.DAO.*;
+import com.mom.model.Participents;
 
 /**
  * Servlet implementation class CreateMom
@@ -39,17 +42,19 @@ public class CreateMom extends HttpServlet {
 			response.setContentType("text/html");
 			String subject =request.getParameter("subject");
 			Integer part_number =Integer.parseInt(request.getParameter("no_of_p"));
-			Integer[] partid=new Integer[part_number];
-			Integer[] presnt=new Integer[part_number];
+			Participents part[]=new Participents[part_number];
+			//Integer[] partid=new Integer[part_number];
+			//Integer[] presnt=new Integer[part_number];
 			for(int i=0;i<part_number;i++){
+				part[i]=new Participents();
 				int j=i+1;
 				String p="part"+j;
 				String ppres="presence"+j;
-				partid[i]=Integer.parseInt(request.getParameter(p));
-				if(ppres.equals("present"))
-				presnt[i]=1;
+				part[i].setEmployeeid(Integer.parseInt(request.getParameter(p)));
+				if(request.getParameter(ppres).equals("absent"))
+				part[i].setAttendence(0);
 				else
-					presnt[i]=0;
+				part[i].setAttendence(1);
 			}
 			String startdate =request.getParameter("startdate");
 			String enddate=request.getParameter("enddate");
@@ -57,11 +62,12 @@ public class CreateMom extends HttpServlet {
 			String desisionstaken=request.getParameter("desisionstaken");
 			String mom_open=request.getParameter("mom_open");
 			Integer no_oct =Integer.parseInt(request.getParameter("no_of_oct"));
-			String[] actions=new String[no_oct]; 
+			Action act[]=new Action[no_oct]; 
 			for(int i=0;i<no_oct;i++){
+				act[i]=new Action();
 				int j=i+1;
 				String p="action"+j;
-				actions[i]=request.getParameter(p);
+				act[i].setAction_name(request.getParameter(p));
 				
 			}
 			Integer creatorid =Integer.parseInt(request.getParameter("creatorid"));
@@ -73,9 +79,15 @@ public class CreateMom extends HttpServlet {
 			meating.setMom_pointsdiscussed(pointsdiscussed);
 			meating.setMom_decisiontaken(desisionstaken);
 			meating.setMom_openitems(mom_open);
+		//	 ac[]=new Action[no_oct];
+		
 			//DateTime dt1=new DateTime(startdate);
 			//SimpleDateFormat sdf1=new SimpleDateFormat("dd-MM-yyyy hh:mm");
 			//java.util.Date date=sdf1.parse(startdate);
+			boolean status=CreateMomDAO.CreateMom(meating,part,part_number,act,no_oct);
+			if(status){
+				
+			}
 		}catch(Exception e){
 			System.out.println(e);
 		}
