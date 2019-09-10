@@ -36,7 +36,7 @@ public class GetEmployees extends HttpServlet {
 		 response.setContentType("text/html;charset=UTF-8");
 	        PrintWriter out = response.getWriter();
 	        List<Employees> list=ConnectionDAO.getAllEmployees();
-	        String options="";
+	        String options="<option disabled selected>choose employees</option>";
 	        for(Employees i:list){
 	        	options+="<option>"+i.getemp_id()+"</option>";
 

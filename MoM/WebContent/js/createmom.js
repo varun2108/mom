@@ -2,7 +2,7 @@
  * 
  */
 $(document).ready(function(){
-	$("#inputState").blur(function(){
+	$("#inputState").blur(function(){ 
 		test();
 	});
 	$("#inputState").focus(function(){
@@ -15,14 +15,23 @@ $(document).ready(function(){
 		$("#foract").html('');
 	});
 	$("#inputState").blur(function(){
-		alert("hi");
 	        $.ajax({
 	            type: "GET",
 	            url: "GetEmployees",
 	            success: function(data){
-	                $("#json-datalist").html(data)
+	                $(".FullName").html(data)
 	            }
 	        });
+	});
+	$("#forval").hover(function(){
+	$(".FullName").rules("add", 
+            {
+                number: true,
+                messages: {
+                    
+                    email: "choose a employee id",
+                  }
+            });
 	});
 });
 function test(){
@@ -42,16 +51,14 @@ function partcontrol(n){
 	for(var i=1;i<=n;i++){
 	dyn+=' <div class="form-row col-md-12">'
 		+'<div class="form-group col-md-6">'
-          +'<input id="Full Name" name="part'+i+'" placeholder="Participent Id'+i+'" list="json-datalist" class="form-control" type="text">'
-          +'<datalist id="json-datalist" class="forop">'
+          +'<select id="" name="part'+i+'" placeholder="Participent Id'+i+'" list="json-datalist" class="form-control FullName" type="text" style="height:100%"><option selected>choose employee</option></select>'
                        +'</div>'
                        +'<div class="form-group col-md-6>'
                        +'<input type="radio" name="presence" value="dont know">'
-                       +'<input type="radio" name="presence'+i+'" value="present"> present &nbsp;&nbsp;'
+                       +'<input type="radio" name="presence'+i+'" value="present" checked> present &nbsp;&nbsp;'
                        +'<input type="radio" name="presence'+i+'" value="absent"> absent'
                        +'</div></div>';
 	}
-	alert(dyn);
 	$("#forpart").append(dyn);
 	
 }
@@ -61,7 +68,7 @@ function actcontrol(n){
 	dyn+='<input id="Full Name" name="action'+i+'" placeholder="Action'+i+'" class="form-control" type="text">';
                       
 	}
-	alert(dyn);
+	
 	$("#foract").append(dyn);
 }
 

@@ -27,10 +27,10 @@ background: #1f253d;
 	<script>
 	
 	$(function() {
-		  $('#datetimepicker1').datetimepicker();
+		  $('#datetimepicker1').datetimepicker({format: 'YYYY-MM-DD HH:mm'});
 		});
 	$(function() {
-		  $('#datetimepicker2').datetimepicker();
+		  $('#datetimepicker2').datetimepicker({format: 'YYYY-MM-DD HH:mm'});
 		});
 </script>
 <body>
@@ -51,26 +51,14 @@ background: #1f253d;
             </div>
                 <div class="col-md-8 py-5 border">
                 <h4 class="pb-4">Please fill following details</h4>
-                <form>
+                <form action="CreateMom">
                     <div class="form-row" >
                         <div class="form-group col-md-6" >
                           <input id="Full Name" name="subject" placeholder="Subject" class="form-control" type="text">
                         </div>
                         <div class="form-group col-md-6">
                                    <input id="inputState" name="no_of_p" placeholder="number of participents" class="form-control" type="number">
-                                 <!-- <select id="" class="form-control" style="height:100%;;">
-                                      <option selected>number of participents</option>
-                                    <option value="1"> 1</option>
-                                    <option value="2"> 2</option>
-                                    <option value="3"> 3</option>
-                                    <option value="4"> 4</option>
-                                    <option value="5"> 5</option>
-                                    <option value="6"> 6</option>
-                                    <option value="7"> 7</option>
-                                    <option value="8"> 8</option>
-                                     <option value="9"> 9</option>
-                                    <option value="10"> 10</option>
-                                  </select>-->
+  									<input name="creatorid" type="hidden" value='<%=session.getAttribute("Emp_id") %>'>                              
                         </div>
                         <div id="forpart" class="col-md-12">
                         
@@ -78,7 +66,7 @@ background: #1f253d;
                        <div class="form-row col-md-12">
                         <div class="form-group col-md-6">
 							<div class="input-group date" id="datetimepicker1">
-								<input type="text" class="form-control" placeholder="start date" /> <span
+								<input type="text" name="startdate" class="form-control" placeholder="start date" /> <span
 									class="input-group-addon"> <span
 									class="glyphicon glyphicon-calendar"></span>
 								</span>
@@ -86,7 +74,7 @@ background: #1f253d;
 						</div>
 						<div class="form-group col-md-6">
 							<div class='input-group date' id='datetimepicker2'>
-								<input type='text' class="form-control" placeholder="end date" /> <span
+								<input type='text' name="enddate" class="form-control" placeholder="end date" /> <span
 									class="input-group-addon"> <span
 									class="glyphicon glyphicon-calendar"></span>
 								</span>
@@ -100,29 +88,34 @@ background: #1f253d;
                     </div>
         			<div class="form-row col-md-12">
                         <div class="form-group col-md-12">
-                                  <textarea id="comment" name="desisions taken" cols="40" rows="5" class="form-control" placeholder="desissions taken"></textarea>
+                                  <textarea id="comment" name="desisionstaken" cols="40" rows="5" class="form-control" placeholder="desissions taken"></textarea>
                         </div>
                         
                     </div>
                     <div class="form-row col-md-12">
-                     <div class="form-group">
-                                   <input id="no_of_act" name="no_of_o" placeholder="number of actions" class="form-control" type="number">
+                     <div class="form-group col-md-6">
+                                   <input id="no_of_act" name="no_of_oct" placeholder="number of actions" class="form-control" type="number">
                     </div>
-                    <div class="form-group" id="foract">
+                    <div class="form-group col-md-6" id="foract">
                                   
                     </div>
                     </div>
+                    <div class="form-row col-md-12">
+                        <div class="form-group col-md-12">
+                                  <textarea id="openitems" name="mom_open" cols="40" rows="5" class="form-control" placeholder="open Items"></textarea>
+                        </div>
+                        
+                    </div>
                     
-                       
+		                       
                     
                                     
                     <div class="form-row">
                         <div class="form-group">
                             <div class="form-group">
                                 <div class="form-check">
-                                  <input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required>
-                                  <label class="form-check-label" for="invalidCheck2">
-                                    <small>By clicking Submit, you agree to our Terms & Conditions, Visitor Agreement and Privacy Policy.</small>
+                       
+                                    
                                   </label>
                                 </div>
                               </div>
@@ -131,7 +124,7 @@ background: #1f253d;
                     </div>
                     
                     <div class="form-row">
-                        <button type="button" class="btn btn-danger">Submit</button>
+                        <button type="submit" class="btn btn-danger forval">Submit</button>
                     </div>
                 </form>
             </div>
