@@ -58,49 +58,46 @@ body {
 				</div>
 
 				<!--Body-->
-				
 
-					<!--Footer-->
-					<div class="modal-footer flex-center">
-						<%@ page import="java.sql.*"%>
-						<%
-							ResultSet resultset = null;
-						
-						%>
-						<%
-							try {
-								Connection connection=ConnectionDAO.getConnection();
-								PreparedStatement ps= connection.prepareStatement("select * from mom where mom_creatorid=?");
-								ps.setInt(1,Integer.parseInt((String)session.getAttribute("Emp_id")));
-								resultset=ps.executeQuery();
-								
 
-						%>
-						<center>
-							<select
-								class="mdb-select md-form colorful-select dropdown-primary p">
-								<option value="Mom List" disabled selected>MoM list</option>
-								<%
-									while (resultset.next()) {
-								%>
-								<option><%=resultset.getString(2)%></option>
-								<%
-									}
-								%>
-							</select>
-						</center>
-						<%
-							//**Should I input the codes here?**
-							} catch (Exception e) {
-								out.println("wrong entry" + e);
-							}
-						%>
-					</div>
+				<!--Footer-->
+				<div class="modal-footer flex-center">
+					<%@ page import="java.sql.*"%>
+					<%
+						ResultSet resultset = null;
+					%>
+					<%
+						try {
+							Connection connection = ConnectionDAO.getConnection();
+							PreparedStatement ps = connection.prepareStatement("select * from mom where mom_creatorid=?");
+							ps.setInt(1, Integer.parseInt((String) session.getAttribute("Emp_id")));
+							resultset = ps.executeQuery();
+					%>
+					<center>
+						<select
+							class="mdb-select md-form colorful-select dropdown-primary p">
+							<option value="Mom List" disabled selected>MoM list</option>
+							<%
+								while (resultset.next()) {
+							%>
+							<option><%=resultset.getString(2)%></option>
+							<%
+								}
+							%>
+						</select>
+					</center>
+					<%
+						//**Should I input the codes here?**
+						} catch (Exception e) {
+							out.println("wrong entry" + e);
+						}
+					%>
 				</div>
-				<!--/.Content-->
 			</div>
+			<!--/.Content-->
 		</div>
-		<!--Modal: modalConfirmDelete-->
+	</div>
+	<!--Modal: modalConfirmDelete-->
 </body>
 <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
 <!-- Bootstrap tooltips -->
