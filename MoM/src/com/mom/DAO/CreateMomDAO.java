@@ -53,6 +53,19 @@ public class CreateMomDAO {
 			ps3.setString(1, act[i].getAction_name());
 			ps3.setInt(2, mom_id);
 			a=ps3.executeUpdate();
+			
+			PreparedStatement ps4 = con.prepareStatement("select action_id from action where ACTION_NAME=?");
+			ps4.setString(1, act[i].getAction_name());
+			
+			rs=ps4.executeQuery();
+			int aid=0;
+			if(rs.next())
+				aid = rs.getInt(1);
+			PreparedStatement ps5 = con.prepareStatement("insert into action_Status(ACTION_ID,CURRENT_STATUS,OPEN) values (?,'open',sysdate)");
+			ps5.setInt(1, aid);
+			a=ps5.executeUpdate();
+
+
 		}
 		if(a>0){
 			status=true;

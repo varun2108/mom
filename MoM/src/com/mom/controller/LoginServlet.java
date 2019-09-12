@@ -32,7 +32,9 @@ public class LoginServlet extends HttpServlet {
 		try{
 		response.setContentType("text/html");
 		Integer Emp_id =Integer.parseInt(request.getParameter("emp_id"));
+		System.out.println(Emp_id);
 		String Emp_pass = request.getParameter("emp_password");
+		System.out.println(Emp_pass);
 		PrintWriter out = response.getWriter();
 		
 		Login employee=new Login();
@@ -67,6 +69,7 @@ public class LoginServlet extends HttpServlet {
 		out.close();}
 	catch(Exception e){
 		System.out.println(e);
+		System.out.println("set");
 	}
 	}
 

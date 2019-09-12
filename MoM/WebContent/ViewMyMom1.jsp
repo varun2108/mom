@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1" import="com.mom.DAO.*"%>
+	pageEncoding="ISO-8859-1" import="com.mom.DAO.*, java.sql.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -9,113 +9,209 @@
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 <title>view my mom</title>
 <!-- Font Awesome -->
-<link rel="stylesheet"
-	href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
 <!-- Bootstrap core CSS -->
 <link href="css/bootstrap.min.css" rel="stylesheet">
-<!-- Material Design Bootstrap -->
-<link href="css/mdb.min.css" rel="stylesheet">
 <!-- Your custom styles (optional) -->
 <link href="css/style.css" rel="stylesheet">
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 </head>
-<body
-	style="background: url(images/a3.jpg); background-size: 100% 100%; background-repeat: no-repeat;">
-	<style>
-.p {
-	display: none;
+<style>
+	@import url(https://fonts.googleapis.com/css?family=Roboto);
+* {
+  margin: 0;
+  padding: 0;
 }
-
+*,
+*:after,
+*:before {
+  box-sizing: border-box;
+}
+html {
+  line-height: 1.2;
+}
 body {
-	height: 900px;
-	width: 100%;
-	background-repeat: no-repeat;
-	overflow: hidden;
+  background-color: #f5f5f5;
+  color: #333;
+  font-family: "Roboto", arial, sans-serif;
+  font-size: 16px;
 }
-
-#btn {
-	position: absolute;
-	top: 53%;
-	left: 38%;
-	background: transparent !important;
+.selected-item {
+  margin: 20px 0;
+  text-align: center;
 }
+.selected-item p {
+  font-size: 18px;
+}
+.selected-item p span {
+  font-weight: bold;
+}
+/* dropdown list */
+.dropdown {
+  margin: 20px auto;
+  width: 300px;
+  position: relative;
+  -webkit-perspective: 800px;
+          perspective: 800px;
+}
+.dropdown.active .selLabel:after {
+  content: '\25B2';
+}
+.dropdown.active .dropdown-list li:nth-child(1) {
+  -webkit-transform: translateY(100%);
+          transform: translateY(100%);
+}
+.dropdown.active .dropdown-list li:nth-child(2) {
+  -webkit-transform: translateY(200%);
+          transform: translateY(200%);
+}
+.dropdown.active .dropdown-list li:nth-child(3) {
+  -webkit-transform: translateY(300%);
+          transform: translateY(300%);
+}
+.dropdown.active .dropdown-list li:nth-child(4) {
+  -webkit-transform: translateY(400%);
+          transform: translateY(400%);
+}
+.dropdown > span {
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  height: 60px;
+  line-height: 60px;
+  color: #fff;
+  font-size: 18px;
+  letter-spacing: 2px;
+  background: #34495e;
+  display: block;
+  padding: 0 50px 0 30px;
+  position: relative;
+  z-index: 9999;
+  cursor: pointer;
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+  -webkit-transform-origin: 50% 0%;
+          transform-origin: 50% 0%;
+  -webkit-transition: -webkit-transform 300ms;
+  transition: -webkit-transform 300ms;
+  transition: transform 300ms;
+  transition: transform 300ms, -webkit-transform 300ms;
+  -webkit-backface-visibility: hidden;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+.dropdown > span:after {
+  content: '\25BC';
+  position: absolute;
+  right: 0px;
+  top: 15%;
+  width: 50px;
+  text-align: center;
+  font-size: 12px;
+  padding: 10px;
+  height: 70%;
+  line-height: 24px;
+  border-left: 1px solid #ddd;
+}
+.dropdown > span:active {
+  -webkit-transform: rotateX(45deg);
+          transform: rotateX(45deg);
+}
+.dropdown > span:active:after {
+  content: '\25B2';
+}
+.dropdown-list {
+  position: absolute;
+  top: 0px;
+  width: 100%;
+}
+.dropdown-list li {
+  display: block;
+  list-style: none;
+  left: 0;
+  opacity: 1;
+  -webkit-transition: -webkit-transform 300ms ease;
+  transition: -webkit-transform 300ms ease;
+  transition: transform 300ms ease;
+  transition: transform 300ms ease, -webkit-transform 300ms ease;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+.dropdown-list li span {
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+  -webkit-backface-visibility: hidden;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  width: 100%;
+  font-size: 18px;
+  line-height: 60px;
+  padding: 0 30px;
+  display: block;
+  color: #fff;
+  cursor: pointer;
+  letter-spacing: 2px;
+}
+	
 </style>
-	<!-- Button trigger modal-->
-	<button type="button" class="btn btn-primary z-depth-5"
-		data-toggle="modal" data-target="#modalConfirmDelete" id="btn">MOM
-		DETAILS</button>
-
-	<!--Modal: modalConfirmDelete-->
-	<div class="modal fade" id="modalConfirmDelete" tabindex="-1"
-		role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-sm modal-notify modal-danger"
-			role="document">
-			<!--Content-->
-			<div class="modal-content text-center"
-				style="margin-top: 200px; margin-left: -75px;">
-				<!--Header-->
-				<div class="modal-header d-flex justify-content-center">
-					<p class="heading">MoM Details</p>
-				</div>
-
-				<!--Body-->
-
-
-				<!--Footer-->
-				<div class="modal-footer flex-center">
-					<%@ page import="java.sql.*"%>
-					<%
-						ResultSet resultset = null;
-					%>
-					<%
-						try {
-							Connection connection = ConnectionDAO.getConnection();
-							PreparedStatement ps = connection.prepareStatement("select * from mom where mom_creatorid=?");
-							ps.setInt(1, Integer.parseInt((String) session.getAttribute("Emp_id")));
-							resultset = ps.executeQuery();
-					%>
-					<center>
-						<select
-							class="mdb-select md-form colorful-select dropdown-primary p">
-							<option value="Mom List" disabled selected>MoM list</option>
-							<%
-								while (resultset.next()) {
-							%>
-							<option><%=resultset.getString(2)%></option>
-							<%
-								}
-							%>
-						</select>
-					</center>
-					<%
-						//**Should I input the codes here?**
-						} catch (Exception e) {
-							out.println("wrong entry" + e);
-						}
-					%>
-				</div>
-			</div>
-			<!--/.Content-->
-		</div>
-	</div>
-	<!--Modal: modalConfirmDelete-->
-</body>
-<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
-<!-- Bootstrap tooltips -->
-<script type="text/javascript" src="js/popper.min.js"></script>
-<!-- Bootstrap core JavaScript -->
-<script type="text/javascript" src="js/bootstrap.min.js"></script>
-<!-- MDB core JavaScript -->
-<script type="text/javascript" src="js/mdb.min.js"></script>
-<script type="text/javascript">
-	$("#date").mouseout(function() {
-		$(".p").toggle();
-	})
-	$(".modal-content").addClass("animated zoomIn")
-</script>
-<script type="text/javascript">
-	//Material Select Initialization
-	$(document).ready(function() {
-		$('.mdb-select').materialSelect();
+<script>
+$(document).ready(function() {
+	  
+	  $(".selLabel").click(function () {
+	    $('.dropdown').toggleClass('active');
+	  });
+	  
+	  $(".dropdown-list li").click(function() {
+	    $('.selLabel').text($(this).text());
+	    $('.dropdown').removeClass('active');
+	    $('.selected-item p span').text($('.selLabel').text());
+	  });
+	  
 	});
 </script>
+<body>
+<%	 Connection con=ConnectionDAO.getConnection();
+	PreparedStatement ps = con.prepareStatement("select * from mom where MOM_CREATORID=?");
+	ps.setInt(1,(Integer)session.getAttribute("Emp_id"));
+	ResultSet rs=ps.executeQuery();
+%>
+	<div class="container-fixed">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Select Your MOM</a>
+  </nav>
+</div>
+	
+</div>
+	
+	<div class="container">
+	<div class="col-md-3"></div>
+	<div class="col-md-6">	
+   <form action="ActionDetails.jsp">
+	<div class="form-group">
+  <label for="sel1">SELECT MOM:</label>
+  <select class="form-control" id="sel1" name="mom_id">
+  <%while(rs.next()){%>
+      <option value=<%=rs.getInt(1)%>>
+        <%=rs.getString(2)%></option>
+      <%} %>
+
+   
+  </select>
+ 
+	</div>
+	<center>
+	<button type="submit" class="btn btn-primary">submit</button>
+	</center>
+</form>
+</div>
+	
+		
+</body>
 </html>

@@ -5,7 +5,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mom.model.Action;
 import com.mom.model.Employees;
 
 public class ConnectionDAO {
@@ -17,7 +16,7 @@ public class ConnectionDAO {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521/xe", "MOM", "redhat");
 		} catch (Exception e) {
-			System.out.println("here");
+			System.out.println("here1");
 			System.out.println(e);
 		}
 		return con;
@@ -51,7 +50,6 @@ public class ConnectionDAO {
 
 		} catch (Exception E) {
 			System.out.println(E);
-			System.out.println("here");
 		}
 
 		return status;
@@ -88,15 +86,13 @@ public class ConnectionDAO {
 		return list;
 	}
 	
-	
-	
 	//for getting employee dtails by name
 	public static Employees getEmployeeByName(String emp_name) {
 		Employees e = new Employees();
 
 		try {
 			Connection con = ConnectionDAO.getConnection();
-			PreparedStatement ps = con.prepareStatement("select * from employees where emp_name=? and emp_status=1 order by emp_startdate DESC");
+			PreparedStatement ps = con.prepareStatement("select * from employees where emp_name=? and emp_status=1 order by emp_id DESC");
 
 			ps.setString(1, emp_name);
 			ResultSet rs = ps.executeQuery();
