@@ -20,6 +20,12 @@ href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
 </head>
  
 <body>
+<script>
+if(${asstatus}){
+	alert("assigned successfully");
+	
+}
+</script>
 <%
 	List<Action> oa=new ArrayList<Action>();
 	List<Action> aa=new ArrayList<Action>();
@@ -95,20 +101,23 @@ href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
 					</div>
 					<!--Body-->
 					<center>
-					<form action="Editservlet" method="post">
+					<form action="Assignaction">
 					
 						<input type="hidden" id="delid" name="actionid">
+						<input type="hidden" name="mom_id" value="<%=momid%>">
 						<label>Select Employee
-								<input list="browsers" name="browser">
+								<input list="browsers" name="employeeid" class="form-control">
 								<datalist id="browsers">
 								</datalist>
 								</label>
 						<div class="wrap-input100 validate-input input100" data-validate = "Start Date">
-					<span class="focus-input100" data-placeholder="&#xf133;";></span>
+					<span class="focus-input100" data-placeholder="&#xf133;"></span>
 						<label>Due Date &nbsp; &nbsp;
-						<input class="" type="date" name="emp_startdate" placeholder="Start Date">
+						<input class="form-control" type="date" name="emp_duedate" placeholder="Due Date">
 						
 						</label>
+						<br>
+						<button  class="btn btn-success" type="submit">Submit</button>
 					</div>
 					
 					</form>
@@ -150,7 +159,6 @@ href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 	<script type="text/javascript">
  $(document).ready(function(){
-	 alert("hi");
 	 $(".table-remove1").on('click',function(){
 		 $('#elegantModalForm').modal('show');
 		 $tr = $(this).closest("tr");

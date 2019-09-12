@@ -1,11 +1,10 @@
 package com.mom.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.text.ParseException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,19 +12,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.mom.DAO.ActionDetailsDAO;
-import com.mom.model.*;
+import com.mom.model.Action;
 
 /**
- * Servlet implementation class getParticipants
+ * Servlet implementation class Assignaction
  */
-@WebServlet("/getParticipants")
-public class getParticipants extends HttpServlet {
+@WebServlet("/Assignaction")
+public class Assignaction extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public getParticipants() {
+    public Assignaction() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,23 +34,29 @@ public class getParticipants extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		int momid=Integer.parseInt(request.getParameter("momid"));
-		List<Employees> pa=new ArrayList();
-		PrintWriter out = response.getWriter();
+		int emp_id=Integer.parseInt(request.getParameter("employeeid"));
+		int action_id=Integer.parseInt(request.getParameter("actionid"));
+		String due_date=request.getParameter("emp_duedate");
+		int momid=Integer.parseInt(request.getParameter("mom_id"));
+		
+		Action a=new Action();
+		
+		a.setActionid(action_id);
+		a.setEmployeeid(emp_id);
+		a.setActiondue(due_date);
+		
+		int status=0;
 		try {
-			pa=ActionDetailsDAO.getParticipants(momid);
-		} catch (SQLException e) {
+			status=ActionDetailsDAO.AssignActions(a);
+		} catch (SQLException | ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		String opt="";
-		for(Employees i:pa){
-			System.out.println("hi");
-			opt+="<option value='"+i.getemp_id()+"'>"+i.getemp_name()+"</option>";
-
+		if(status!=0){
+			request.setAttribute("asstatus", status);
+			RequestDispatcher rd = request.getRequestDispatcher("ActionDetails.jsp?mom_id="+momid);
+			rd.forward(request, response);
 		}
-		out.print(opt);
-		
 	}
 
 	/**
