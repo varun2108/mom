@@ -18,12 +18,14 @@ href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
 <!-- Your custom styles (optional) -->
 <link href="css/style.css" rel="stylesheet">
 </head>
+ 
 <body>
 <%
 	List<Action> oa=new ArrayList<Action>();
 	List<Action> aa=new ArrayList<Action>();
 	oa=ActionDetailsDAO.getOpenActions(Integer.parseInt(request.getParameter("mom_id")));
 	aa=ActionDetailsDAO.getAssignedActions(Integer.parseInt(request.getParameter("mom_id")));
+	int momid=Integer.parseInt(request.getParameter("mom_id"));
 %>
 <div class="container">
  <div class="row">
@@ -44,7 +46,7 @@ href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
     <TR>
      <td class="pt-3-half"><%=i.getActionid() %></td>
      <td class="pt-3-half"><%=i.getAction_name() %></td>
-     <td class="pt-3-half"><span class="table-remove"><a class="btn btn-rounded btn-sm my-0 font btn btn-danger" href='#'>Assign</a></span></td>
+     <td class="pt-3-half"><span class="table-remove"><button class="btn btn-rounded btn-sm my-0 font btn btn-danger table-remove1">Assign</button></span></td>
 
     </TR>
    	<%} %>
@@ -75,78 +77,96 @@ href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
    </tbody>
    </table>
   </div>
-   <div class="modal fade" id="DeleteSucess" tabindex="-1" role="dialog"
-  aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-sm modal-notify modal-danger"
-   role="document">
-   <!--Content-->
-   <div class="modal-content text-center">
-    <!--Header-->
-    <div class="modal-header d-flex justify-content-center">
+	<div class="modal fade" id="elegantModalForm" tabindex="-1"
+			role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<!--Content-->
+				<div class="modal-content form-elegant">
+					<!--Header-->
+					<div class="modal-header text-center">
+						<h3 class="modal-title w-100 dark-grey-text font-weight-bold my-3"
+							id="myModalLabel">
+							<strong>ASSIGN Action</strong>
+						</h3>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<!--Body-->
+					<center>
+					<form action="Editservlet" method="post">
+					
+						<input type="hidden" id="delid" name="actionid">
+						<label>Select Employee
+								<input list="browsers" name="browser">
+								<datalist id="browsers">
+								</datalist>
+								</label>
+						<div class="wrap-input100 validate-input input100" data-validate = "Start Date">
+					<span class="focus-input100" data-placeholder="&#xf133;";></span>
+						<label>Due Date &nbsp; &nbsp;
+						<input class="" type="date" name="emp_startdate" placeholder="Start Date">
+						
+						</label>
+					</div>
+					
+					</form>
+					</center>
+					</div>
 
-     <p class="heading">Successfully assigned</p>
-    </div>
+				</div>
+			</div>
 
-    <!--Body-->
+		</div>
+	</div>
 
+	
+  
 
-    <!--Footer-->
-    <div class="modal-footer flex-center text-center">
-     <center>
-      <a href="" class="btn btn btn-info">OK</a>
-      </form>
-    </div>
-   </div>
-   <!--/.Content-->
-  </div>
- </div>
+	<script src="lib/jquery/jquery.min.js"></script>
+	<script src="lib/jquery/jquery-migrate.min.js"></script>
+	
+	<script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="lib/bootstrap/js/bootstrap.js"></script>
+	<script src="lib/bootstrap/js/bootstrap.bundle.js"></script>
+	<script src="lib/bootstrap/js/bootstrap.min.js"></script>
 
-
- <div class="modal fade" id="modalConfirmDelete" tabindex="-1"
-  role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-sm modal-notify modal-danger"
-   role="document">
-   <!--Content-->
-   <div class="modal-content text-center">
-    <!--Header-->
-    <div class="modal-header d-flex justify-content-center">
-     <p class="heading">Are you sure?</p>
-    </div>
-
-    <!--Body-->
-
-
-    <!--Footer-->
-    <div class="modal-footer flex-center text-center">
-     <center>
-      <form action="DeactivateServlet">
-       <input type="hidden" name="id" id="delid" />
-       <button type="submit" class="btn btn btn-success" name="sbtn">Yes</button>
-       &nbsp;&nbsp; <a href="" class="btn btn btn-danger">No</a>
-      </form>
-    </div>
-   </div>
-   <!--/.Content-->
-  </div>
- </div>
- <script type="text/javascript">
+	<script src="lib/easing/easing.min.js"></script>
+	<script src="lib/superfish/hoverIntent.js"></script>
+	<script src="lib/superfish/superfish.min.js"></script>
+	<script src="lib/wow/wow.min.js"></script>
+	<script src="lib/waypoints/waypoints.min.js"></script>
+	<script src="lib/counterup/counterup.min.js"></script>
+	<script src="lib/owlcarousel/owl.carousel.min.js"></script>
+	<script src="lib/isotope/isotope.pkgd.min.js"></script>
+	<script src="lib/lightbox/js/lightbox.min.js"></script>
+	<script src="lib/touchSwipe/jquery.touchSwipe.min.js"></script>
+	<!-- Contact Form JavaScript File -->
+	<script src="contactform/contactform.js"></script>
+	
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	<script type="text/javascript">
  $(document).ready(function(){
-  $('.table-remove').on('click',function(){
-   $('#modalConfirmDelete').modal('show');
-   $tr = $(this).closest("tr");
-   var data=$tr.children("td").map(function(){
-    return $(this).text();
-   }).get();
-   $('#delid').val(data[0]);
+	 alert("hi");
+	 $(".table-remove1").on('click',function(){
+		 $('#elegantModalForm').modal('show');
+		 $tr = $(this).closest("tr");
+			var data=$tr.children("td").map(function(){
+				return $(this).text();
+			}).get();
+			$('#delid').val(data[0]);
+				  $.ajax({
+					  url: "getParticipants", 
+					  data: {momid : "<%=momid%>"},
+					  success: function(result){
+				    $("#browsers").html(result);
+				  }});
+			
+	 });
   });
  </script>
-  
 </body>
-<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
-<!-- Bootstrap tooltips -->
-<script type="text/javascript" src="js/popper.min.js"></script>
-<!-- Bootstrap core JavaScript -->
-<script type="text/javascript" src="js/bootstrap.min.js"></script>
-
-<script type="text/javascript" src="js/mdb.min.js"></script>
 </html>
