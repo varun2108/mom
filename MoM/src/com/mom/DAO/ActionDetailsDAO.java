@@ -76,10 +76,31 @@ public class ActionDetailsDAO {
 		
 		status=ps.executeUpdate();
 		
-		PreparedStatement ps1=con.prepareStatement("update action_status set CURRENT_STATUS ='assigned',ASSIGNED=sysdate where action_id=?");
+		PreparedStatement ps1=con.prepareStatement("update action_status set CURRENT_STATUS='assigned',ASSIGNED=sysdate where action_id=?");
 		ps1.setInt(1, a.getActionid());
 
+		status=ps1.executeUpdate();
 
 		return status;
+	}
+	public static List<Action> getEmpAssignedAct(int empid){
+		List<Action> al=new ArrayList<Action>();
+		try{
+		Action a=new Action();
+		Connection con=ConnectionDAO.getConnection();
+		PreparedStatement ps=con.prepareStatement("select a.action_id,a.action_name,a.mom_id from action a join action_status s on a.action_id=s.action_id where a.emp_id=? and current_status='assigned';");
+		ps.setInt(1, empid);
+		ResultSet rs=ps.executeQuery();
+		while(rs.next()){
+			a.setActionid(rs.getInt(1));
+			a.setAction_name(rs.getString(2));
+			a.setMomid(rs.getInt(3));
+			
+			al.add(a);
+		}
+		}catch(Exception e){
+			System.out.println(e);
+		}
+		return al;
 	}
 }

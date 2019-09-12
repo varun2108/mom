@@ -1,9 +1,3 @@
-@CHARSET "ISO-8859-1";
-
-/************************************ FONTS ************************************/
-@import url(https://fonts.googleapis.com/css?family=Ubuntu:400,700);
-@import url(http://weloveiconfonts.com/api/?family=entypo|fontawesome|zocial);
-/* entypo */
 [class*="entypo-"]:before {
   font-family: 'entypo', sans-serif;
 }
@@ -119,6 +113,12 @@ h1, h2, p, a, span{
 	border-top-right-radius: 5px;
 }
 
+.center1
+{ 
+		line-height: 38px;
+		text-align: center;
+}
+
 .button {
 	display: block;
 	width: 175px;
@@ -179,7 +179,7 @@ h1, h2, p, a, span{
 	font-family: 'Ubuntu', sans-serif;
 	width: 950px;
 	height: 100%;
-	margin: 6em auto;
+	margin: 1em auto;
 }	
 	/*********************************************** HEADER ***********************************************/
 	header {
@@ -260,7 +260,8 @@ h1, h2, p, a, span{
 		/******************************************** LEFT CONTAINER *****************************************/
 		.left-container {}
 			.menu-box {
-				height: 240px;
+				height: 250px;
+				
 			}
 				.menu-box .titular {
 					background: #11a8ab;
@@ -269,8 +270,8 @@ h1, h2, p, a, span{
 					display: inline-block;
 					vertical-align: top;
 					width: 28px;
-					margin-left: 20px;
-					margin-right: 15px;
+					margin-left: 30px;
+					margin-right: 25px;
 				}
 				.menu-box-number {
 					width: 36px;
@@ -280,7 +281,7 @@ h1, h2, p, a, span{
 					border-radius: 15px;
 					position: absolute;
 					top: 15px;
-					right: 15px;
+					right: 20px;
 					-webkit-transition: all .3s;
 					transition: all .3s;
 				}
@@ -291,21 +292,14 @@ h1, h2, p, a, span{
 				.menu-box-tab {
 					line-height: 60px;
 					display: block;
-					border-bottom: 1px solid #1f253d;
+					
 					-webkit-transition: background .2s;
 					transition: background .2s;
 				}
-					.menu-box-tab:hover {
-						background: #50597b;
-						border-top: 1px solid #1f253d;
-						text-decoration: none;
-					}
-					.menu-box-tab:hover .icon {
-						color: #fff;
-					}
-					.menu-box-tab:hover .menu-box-number {
-						background: #e64c65;
-					}
+					.midcon {
+				height: 40px;
+				
+			}
 			
 				/******************************************
 				DONUT-CHART by @kseso https://codepen.io/Kseso/pen/phiyL
@@ -634,22 +628,17 @@ h1, h2, p, a, span{
 						.left-container .social .googleplus .number{
 							background: #cc324b;
 						}
-					.left-container .social .mailbox {
-						background: #50597b;						
-						border-top-right-radius: 5px;
-						border-bottom-right-radius: 5px;
-					}
-						.left-container .social .mailbox .number {
-							background: #363f61;
-							border-bottom-right-radius: 5px;
-						}
+					
 		/************************************************** MIDDLE CONTAINER **********************************/
 		.middle-container {
-			margin: 0 25px;			
+			margin: 0 25px;	
+            width:300px !important;	
+
+}			
 		}
 			.profile {
 				height: 501px;
-				width: 630px;
+				width: 300px;
 			}
 				.add-button .icon {
 					float: right;
@@ -690,4 +679,4 @@ h1, h2, p, a, span{
 							text-align: center;
 							-webkit-transition: background .3s;
 							transition: background .3s;				
-						
+						}
