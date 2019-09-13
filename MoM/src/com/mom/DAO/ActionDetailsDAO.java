@@ -87,15 +87,16 @@ public class ActionDetailsDAO {
 		List<Action> al=new ArrayList<Action>();
 		try{
 		Action a=new Action();
+		System.out.println(empid);
 		Connection con=ConnectionDAO.getConnection();
-		PreparedStatement ps=con.prepareStatement("select a.action_id,a.action_name,a.mom_id from action a join action_status s on a.action_id=s.action_id where a.emp_id=? and current_status='assigned';");
+		PreparedStatement ps=con.prepareStatement("select a.action_id,a.action_name,a.mom_id from action a join action_status s on a.action_id=s.action_id where a.emp_id=? and current_status='assigned'");
 		ps.setInt(1, empid);
 		ResultSet rs=ps.executeQuery();
 		while(rs.next()){
 			a.setActionid(rs.getInt(1));
 			a.setAction_name(rs.getString(2));
 			a.setMomid(rs.getInt(3));
-			
+			System.out.println(rs.getString(2));
 			al.add(a);
 		}
 		}catch(Exception e){
