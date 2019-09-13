@@ -74,11 +74,21 @@ a {
 </head>
 <title>Admin Dashboard</title>
 <body>
+<script type="text/javascript">
+if(${actstatus}>0){
+	alert("action Accepted");
+}
+if(${readysts}>0){
+	alert("Great...! Wainting for creator to close");
+}
+</script>
 	<%
 		int empid = (Integer) session.getAttribute("Emp_id");
 		List<Action> al = new ArrayList<Action>();
+		List<Action> wp=new ArrayList<Action>();
 		try {
 			al = ActionDetailsDAO.getEmpAssignedAct(empid);
+			wp = ActionDetailsDAO.getEmpAccepedAcr(empid);
 		} catch (Exception e) {
 			System.out.println(e);
 		}
@@ -179,8 +189,7 @@ a {
 										<td class="pt-3-half"><%=a.getAction_name() %></td>
 										<td class="pt-3-half"><%=a.getMomid() %></td>
 										<td><span class="table-remove">
-												<button type="button" class="button2" data-toggle="modal"
-													data-target="#elegantModalForm">Accept</button>
+												<button type="button" class="button2 acbtn" >Accept</button>
 										</span></td>
 
 
@@ -273,70 +282,19 @@ a {
 									</tr>
 								</thead>
 								<tbody>
+								<% for(Action a:wp){%>
 									<tr class="col1">
-										<td class="pt-3-half">Aurelia Vega</td>
-										<td class="pt-3-half">30</td>
+										<td style="display:none"><%=a.getActionid() %></td>
+										<td class="pt-3-half"><%=a.getAction_name() %></td>
+										<td class="pt-3-half"><%=a.getMomid() %></td>
 
 										<td><span class="table-remove">
-												<button type="button" class="button2" data-toggle="modal"
-													data-target="#elegantModalForm">Ready</button>
-										</span></td>
-
-
-
-									</tr>
-
-
-
-									<!-- This is our clonable table line -->
-									<tr class="col1">
-										<td class="pt-3-half">Aurelia Vega</td>
-										<td class="pt-3-half">30</td>
-
-										<td><span class="table-remove">
-												<button type="button" class="button2"
-													class="btn  btn-rounded btn-sm my-0 font btn btn-info"
-													data-toggle="modal" data-target="#elegantModalForm">Ready</button>
-										</span></td>
-
-
-
-									</tr>
-									<!-- This is our clonable table line -->
-									<tr class="col1">
-										<td class="pt-3-half">Aurelia Vega</td>
-										<td class="pt-3-half">30</td>
-
-										<td><span class="table-remove">
-												<button type="button" class="button2"
-													class="btn  btn-rounded btn-sm my-0 font btn btn-info"
-													data-toggle="modal" data-target="#elegantModalForm">Ready</button>
+												<button type="button" class="readyact button2">Ready</button>
 										</span></td>
 									</tr>
-									<!-- This is our clonable table line -->
-									<tr class="col1">
-										<td class="pt-3-half">Aurelia Vega</td>
-										<td class="pt-3-half">30</td>
-
-										<td><span class="table-remove">
-												<button type="button" class="button2"
-													class="btn  btn-rounded btn-sm my-0 font btn btn-info"
-													data-toggle="modal" data-target="#elegantModalForm">Ready</button>
-										</span></td>
-									</tr>
-									<tr class="col1">
-										<td class="pt-3-half">Aurelia Vega</td>
-										<td class="pt-3-half">30</td>
-
-										<td><span class="table-remove">
-												<button type="button" class="button2"
-													class="btn  btn-rounded btn-sm my-0 font btn btn-info"
-													data-toggle="modal" data-target="#elegantModalForm">Ready</button>
-										</span></td>
+								<%} %>
 
 
-
-									</tr>
 								</tbody>
 							</table>
 
@@ -349,6 +307,54 @@ a {
 		</div>
 		<!-- end main-container -->
 	</div>
+	<div class="modal" id="myModal">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+
+				<!-- Modal Header -->
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					Are you sure?
+				</div>
+
+				<!-- Modal body -->
+
+				<!-- Modal footer -->
+				<div class="modal-footer">
+				<form action="Acceptact">
+					<input type="hidden" id="delid" name="acceptid">
+					<button type="submit" class="btn btn-success">Submit</button>
+					<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+					</form>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<div class="modal" id="ready">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+
+				<!-- Modal Header -->
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					Is Action Ready for Closure?
+				</div>
+
+				<!-- Modal body -->
+
+				<!-- Modal footer -->
+				<div class="modal-footer">
+				<form action="ReadyForClosure">
+					<input type="hidden" id="actid" name="readyid">
+					<button type="submit" class="btn btn-success">Yes</button>
+					<button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+					</form>
+				</div>
+
+			</div>
+		</div>
+	</div>
 
 	<!-- jQuery library -->
 	<script
@@ -357,6 +363,27 @@ a {
 	<!-- Latest compiled JavaScript -->
 	<script
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('.acbtn').on('click',function(){
+			$('#myModal').modal('show');
+			$tr = $(this).closest("tr");
+			var data=$tr.children("td").map(function(){
+				return $(this).text();
+			}).get();
+			$('#delid').val(data[0]);
+		});
+		$('.readyact').on('click',function(){
+			$('#ready').modal('show');
+			$tr = $(this).closest("tr");
+			var data=$tr.children("td").map(function(){
+				return $(this).text();
+			}).get();
+			$('#actid').val(data[0]);
+		});
+	});
+		
+</script>
 
 </body>
 </html>

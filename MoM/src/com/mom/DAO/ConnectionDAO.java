@@ -15,6 +15,7 @@ public class ConnectionDAO {
 
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521/xe", "MOM", "redhat");
+			System.out.println("Connected");
 		} catch (Exception e) {
 			System.out.println("here1");
 			System.out.println(e);

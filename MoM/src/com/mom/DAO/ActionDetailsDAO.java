@@ -15,13 +15,14 @@ import com.mom.model.Employees;
 public class ActionDetailsDAO {
 	public static List<Action> getOpenActions(Integer mom_id) throws SQLException{
 		List<Action> oa=new ArrayList<Action>();
-		Action a=new Action();
+		System.out.println(mom_id);
 		Connection con=ConnectionDAO.getConnection();
 		PreparedStatement ps=con.prepareStatement("select * from action where emp_id=0 and mom_id=?");
 		ps.setInt(1, mom_id);
 		
 		ResultSet rs=ps.executeQuery();
 		while(rs.next()){
+			Action a=new Action();
 			a.setActionid(rs.getInt(1));
 			a.setAction_name(rs.getString(2));
 			oa.add(a);
@@ -31,12 +32,12 @@ public class ActionDetailsDAO {
 }
 	public static List<Action> getAssignedActions(Integer mom_id) throws SQLException{
 		List<Action> aa=new ArrayList<Action>();
-		Action a=new Action();
 		Connection con=ConnectionDAO.getConnection();
 		PreparedStatement ps=con.prepareStatement("select a.action_id,s.current_status,a.emp_id from action a join action_status s on a.action_id=s.action_id where a.mom_id=? and a.emp_id!=0");
 		ps.setInt(1, mom_id);
 		ResultSet rs=ps.executeQuery();
 		while(rs.next()){
+			Action a=new Action();
 			a.setActionid(rs.getInt(1));
 			a.setAction_status(rs.getString(2));
 			a.setEmployeeid(rs.getInt(3));
@@ -48,12 +49,12 @@ public class ActionDetailsDAO {
 
 	public static List<Employees> getParticipants(Integer mom_id) throws SQLException{
 		List<Employees> aa=new ArrayList<Employees>();
-		Employees a=new Employees();
 		Connection con=ConnectionDAO.getConnection();
 		PreparedStatement ps=con.prepareStatement("select p.emp_id,e.emp_name from participants p join employees e on p.emp_id=e.emp_id where mom_id=?");
 		ps.setInt(1, mom_id);
 		ResultSet rs=ps.executeQuery();
 		while(rs.next()){
+			Employees a=new Employees();
 			a.setemp_id(rs.getInt(1));
 			a.setemp_name(rs.getString(2));
 			aa.add(a);
@@ -86,13 +87,12 @@ public class ActionDetailsDAO {
 	public static List<Action> getEmpAssignedAct(int empid){
 		List<Action> al=new ArrayList<Action>();
 		try{
-		Action a=new Action();
-		System.out.println(empid);
 		Connection con=ConnectionDAO.getConnection();
 		PreparedStatement ps=con.prepareStatement("select a.action_id,a.action_name,a.mom_id from action a join action_status s on a.action_id=s.action_id where a.emp_id=? and current_status='assigned'");
 		ps.setInt(1, empid);
 		ResultSet rs=ps.executeQuery();
 		while(rs.next()){
+			Action a=new Action();
 			a.setActionid(rs.getInt(1));
 			a.setAction_name(rs.getString(2));
 			a.setMomid(rs.getInt(3));
@@ -104,4 +104,49 @@ public class ActionDetailsDAO {
 		}
 		return al;
 	}
+
+	public static int AcceptAction(int actid){
+		int status=0;
+		try{
+			Connection con=ConnectionDAO.getConnection();
+			PreparedStatement ps=con.prepareStatement("update action_status set CURRENT_STATUS='wip',WIP=sysdate where ACTION_ID=?");
+			ps.setInt(1, actid);
+			status=ps.executeUpdate();
+			}catch(Exception e){
+				System.out.println(e);
+			}
+		return status;
+	}	
+	public static List<Action> getEmpAccepedAcr(int empid){
+		List<Action> al=new ArrayList<Action>();
+		try{
+		Connection con=ConnectionDAO.getConnection();
+		PreparedStatement ps=con.prepareStatement("select a.action_id,a.action_name,a.mom_id from action a join action_status s on a.action_id=s.action_id where a.emp_id=? and current_status='wip'");
+		ps.setInt(1, empid);
+		ResultSet rs=ps.executeQuery();
+		while(rs.next()){
+			Action a=new Action();
+			a.setActionid(rs.getInt(1));
+			a.setAction_name(rs.getString(2));
+			a.setMomid(rs.getInt(3));
+			System.out.println(rs.getString(2));
+			al.add(a);
+		}
+		}catch(Exception e){
+			System.out.println(e);
+		}
+		return al;
+	}
+	public static int ActionReady(int actid){
+		int status=0;
+		try{
+			Connection con=ConnectionDAO.getConnection();
+			PreparedStatement ps=con.prepareStatement("update action_status set CURRENT_STATUS='ready_for_closure',READY_FOR_CLOSURE=sysdate where ACTION_ID=?");
+			ps.setInt(1, actid);
+			status=ps.executeUpdate();
+			}catch(Exception e){
+				System.out.println(e);
+			}
+		return status;
+	}	
 }
