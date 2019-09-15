@@ -86,9 +86,11 @@ if(${readysts}>0){
 		int empid = (Integer) session.getAttribute("Emp_id");
 		List<Action> al = new ArrayList<Action>();
 		List<Action> wp=new ArrayList<Action>();
+		Stats s=new Stats();
 		try {
 			al = ActionDetailsDAO.getEmpAssignedAct(empid);
 			wp = ActionDetailsDAO.getEmpAccepedAcr(empid);
+			s=ActionDetailsDAO.getStats(empid);
 		} catch (Exception e) {
 			System.out.println(e);
 		}
@@ -116,9 +118,9 @@ if(${readysts}>0){
 				<p>
 					<a href="#26"><span class="entypo-down-open scnd-font-color"></span></a>
 				</p>
-
-				<img width="30px" height="30px" alt="Anne Hathaway picture"
-					src="images/user.png" style="border-radius: 50%;">
+				<a href="#" id="nowa" class="btn btn-dark" title="No of Actions Waiting for you to close">
+         			 <span class="glyphicon glyphicon-bell" id="now" >0</span>
+        		</a>
 
 			</div>
 			</header>
@@ -244,27 +246,23 @@ if(${readysts}>0){
                 </div>-->
 
 						<div class="midcon block">
-							<p class="center1">Number of MoM created: 12</p>
+							<p class="center1">Number of MoM created: <%=s.getN_mom() %></p>
 						</div>
 
 						<div class="midcon block">
-							<p class="center1">Number of MoM created: 12</p>
+							<p class="center1">Number of Actions Under WIP: <%=s.getNa_wip() %></p>
 						</div>
 
 
 						<div class="midcon block">
-							<p class="center1">Number of MoM created: 12</p>
+							<p class="center1">Number of Actions Under RFC: <%=s.getNa_rfc() %></p>
 						</div>
 
-
-
 						<div class="midcon block">
-							<p class="center1">Number of MoM created: 12</p>
+							<p class="center1">Number of Actions Closed: <%=s.getNa_closed() %></p>
 						</div>
 
 					</div>
-
-
 					<div class="container col-md-4">
 						<div class="menu-box block" id="tableHolder">
 							<!-- MENU BOX (LEFT-CONTAINER) -->
@@ -381,6 +379,10 @@ if(${readysts}>0){
 			}).get();
 			$('#actid').val(data[0]);
 		});
+		if(<%=s.getN_wfc()%>>0){
+			$("#nowa").addClass("btn-danger")
+			$("#now").html("<%=s.getN_wfc()%>");
+		}
 	});
 		
 </script>

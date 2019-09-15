@@ -11,6 +11,7 @@ import java.util.List;
 
 import com.mom.model.Action;
 import com.mom.model.Employees;
+import com.mom.model.Stats;
 
 public class ActionDetailsDAO {
 	public static List<Action> getOpenActions(Integer mom_id) throws SQLException{
@@ -149,4 +150,38 @@ public class ActionDetailsDAO {
 			}
 		return status;
 	}	
+	public static Stats getStats(int emp_id){
+		Stats s=new Stats();
+		try{
+			Connection con=ConnectionDAO.getConnection();
+			PreparedStatement ps=con.prepareStatement("select count(*) from mom where mom_creatorid=?");
+			ps.setInt(1, emp_id);
+			ResultSet rs=ps.executeQuery();
+			if(rs.next())
+				s.setN_mom(rs.getInt(1));
+			PreparedStatement ps1=con.prepareStatement("select count(*) from action_status s join action a on a.action_id=s.action_id where s.current_status='wip' and a.emp_id=?");
+			ps1.setInt(1, emp_id);
+			rs=ps1.executeQuery();
+			if(rs.next())
+				s.setNa_wip(rs.getInt(1));
+			ps1=con.prepareStatement("select count(*) from action_status s join action a on a.action_id=s.action_id where s.current_status='ready_for_closure' and a.emp_id=?");
+			ps1.setInt(1, emp_id);
+			rs=ps1.executeQuery();
+			if(rs.next())
+				s.setNa_rfc(rs.getInt(1));
+			ps1=con.prepareStatement("select count(*) from action_status s join action a on a.action_id=s.action_id where s.current_status='closed' and a.emp_id=?");
+			ps1.setInt(1, emp_id);
+			rs=ps1.executeQuery();
+			if(rs.next())
+				s.setNa_closed(rs.getInt(1));
+			ps1=con.prepareStatement("select count(*) from action_status s join action a on a.action_id=s.action_id join mom m on m.mom_id=a.mom_id where m.mom_creatorid=? and s.CURRENT_STATUS='ready_for_closure'");
+			ps1.setInt(1, emp_id);
+			rs=ps1.executeQuery();
+			if(rs.next())
+				s.setN_wfc(rs.getInt(1));
+			}catch(Exception e){
+				System.out.println(e);
+			}
+		return s;
+	}
 }
