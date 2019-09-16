@@ -1,6 +1,8 @@
 package com.mom.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.mom.DAO.ActionDetailsDAO;
 import com.mom.model.Action;
 
 /**
@@ -31,10 +34,25 @@ public class CloseAct extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		PrintWriter out=response.getWriter();
 		int emp_id=Integer.parseInt(request.getParameter("emp_id"));
 		List<Action> li=new ArrayList<Action>();
-		li=ActionDetailsDAO.getCloseActions(emp_id);
-		
+		try {
+			li=ActionDetailsDAO.getCloseActions(emp_id);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		String op="";
+		for(Action a:li){
+			op+= "<tr>"+
+					"<th scope='row'>"+a.getAction_name()+"</th>"+
+		      "<td>"+a.getMomid()+"</td>"+
+		      "<td>"+a.getEmployeeid()+"</td>"+
+		      "<td><button class='btn btn-success'>close</button></td>"+
+		      "</tr>";
+		}
+		out.print(op);
 	}
 
 	/**

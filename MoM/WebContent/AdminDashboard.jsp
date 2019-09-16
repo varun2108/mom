@@ -416,24 +416,7 @@ if(${readysts}>0){
 							</tr>
 						</thead>
 						<tbody id="tb">
-							<tr>
-								<th scope="row">1</th>
-								<td>Mark</td>
-								<td>Otto</td>
-								<td>@mdo</td>
-							</tr>
-							<tr>
-								<th scope="row">2</th>
-								<td>Jacob</td>
-								<td>Thornton</td>
-								<td>@fat</td>
-							</tr>
-							<tr>
-								<th scope="row">3</th>
-								<td>Larry</td>
-								<td>the Bird</td>
-								<td>@twitter</td>
-							</tr>
+							
 						</tbody>
 					</table>
 				</div>
@@ -496,6 +479,7 @@ if(${readysts}>0){
 			$.ajax({url: "CloseAct?emp_id="+<%=empid%>, success: function(resu){
 				$("#tb").html(resu);
 			}
+			});
 			$('#clos').modal('show');
 			
 

@@ -246,10 +246,20 @@ public class ActionDetailsDAO {
 		
 		return li;
 	}
-	public static List<Action> getCloseActions(int empid){
+	public static List<Action> getCloseActions(int empid) throws SQLException{
 		List<Action> li=new ArrayList<Action>();
 		Connection con=ConnectionDAO.getConnection();
-		PreparedStatement ps=con.prepareStatement("select * from mom where mom_subject=?");
+		PreparedStatement ps=con.prepareStatement(" select a.action_id,a.action_name,m.mom_id,a.emp_id from mom m join action a on m.mom_id=a.mom_id join action_status s on a.action_id=s.action_id where m.MOM_CREATORID=? and s.CURRENT_STATUS='ready_for_closure'");
+		ps.setInt(1, empid);
+		ResultSet rs=ps.executeQuery();
+		while(rs.next()){
+			Action a=new Action();
+			a.setActionid(rs.getInt(1));
+			a.setAction_name(rs.getString(2));
+			a.setMomid(rs.getInt(3));
+			a.setEmployeeid(rs.getInt(4));
+			li.add(a);
+		}
 		return li;
 	}
 }
