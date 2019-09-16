@@ -114,7 +114,31 @@ if(${readysts}>0){
 						class="icon fontawesome-user scnd-font-color"></span>Logout</a></li>
 
 			</ul>
-			<div class="profile-menu">
+			       
+        
+            <div class="col-xs-2 col-xs-offset-2" style="position:absolute;left:44%;top:4.8%;">
+                <form action="#" method="get" id="searchForm" class="input-group">
+                    
+                    <div class="input-group-btn search-panel">
+                        <select name="search_param" id="search_param" class="btn btn-default dropdown-toggle form-control" data-toggle="dropdown">
+                            <option value="mom_id">momid</option>
+                            <option value="MOM_SUBJECT">MomSubject</option>
+                         </select>
+                    </div>
+                    <input type="text" class="form-control" id="y" name="x" placeholder="Search term..." list="browsers">
+                    <datalist id="browsers">
+						
+					</datalist>
+                    
+                    <span class="input-group-btn">
+                        <button class="btn btn-info form-control" type="submit" id="search">
+                           <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                    </span>
+                </form><!-- end form -->     
+            </div><!-- end col-xs-8 -->   
+
+			<div class="profile-menu" style="">
 				<p>
 					<a href="#26"><span class="entypo-down-open scnd-font-color"></span></a>
 				</p>
@@ -330,7 +354,7 @@ if(${readysts}>0){
 		</div>
 	</div>
 	<div class="modal" id="ready">
-		<div class="modal-dialog modal-sm">
+		<div class="modal-dialog">
 			<div class="modal-content">
 
 				<!-- Modal Header -->
@@ -353,7 +377,75 @@ if(${readysts}>0){
 			</div>
 		</div>
 	</div>
+		<div class="modal" id="sr">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
 
+				<!-- Modal Header -->
+			
+
+				<!-- Modal body -->
+				<div class="modal-body" id="srcontent">
+					no record found
+				</div>
+				<!-- Modal footer -->
+				<div class="modal-footer">
+				
+					<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<div class="modal" id="clos">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+
+				<!-- Modal Header -->
+			
+
+				<!-- Modal body -->
+				<div class="modal-body" id="">
+					<table class="table">
+						<thead class="thead-dark">
+							<tr>
+								<th scope="col">Action_name</th>
+								<th scope="col">Mom_id</th>
+								<th scope="col">Emp_id</th>
+								<th scope="col">Close</th>
+							</tr>
+						</thead>
+						<tbody id="tb">
+							<tr>
+								<th scope="row">1</th>
+								<td>Mark</td>
+								<td>Otto</td>
+								<td>@mdo</td>
+							</tr>
+							<tr>
+								<th scope="row">2</th>
+								<td>Jacob</td>
+								<td>Thornton</td>
+								<td>@fat</td>
+							</tr>
+							<tr>
+								<th scope="row">3</th>
+								<td>Larry</td>
+								<td>the Bird</td>
+								<td>@twitter</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<!-- Modal footer -->
+				<div class="modal-footer">
+				
+					<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+				</div>
+
+			</div>
+		</div>
+	</div>
 	<!-- jQuery library -->
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -379,6 +471,36 @@ if(${readysts}>0){
 			}).get();
 			$('#actid').val(data[0]);
 		});
+		$("#search_param").blur(function(){
+			var val=$("#search_param").val();
+
+			  $.ajax({url: "searchMom?filter="+val+"&emp_id="+<%=empid%>, success: function(result){
+				  $("#browsers").html(result);
+			  }});
+
+		});
+		$('#search').on('click',function(){
+			var momid=$("#y").val();
+			
+			var val=$("#search_param").val();
+			$.ajax({url: "MomDet?mom_id="+momid+"&filter="+val, success: function(res){
+				$("#srcontent").html(res);
+			}
+				
+			});
+			$('#sr').modal('show');
+
+			
+		});
+		$('#nowa').on('click',function(){
+			$.ajax({url: "CloseAct?emp_id="+<%=empid%>, success: function(resu){
+				$("#tb").html(resu);
+			}
+			$('#clos').modal('show');
+			
+
+		});
+		
 		if(<%=s.getN_wfc()%>>0){
 			$("#nowa").addClass("btn-danger")
 			$("#now").html("<%=s.getN_wfc()%>");

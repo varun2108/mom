@@ -23,6 +23,7 @@ public class LoginDAO {
 		try {
 			Connection con = ConnectionDAO.getConnection();
 			   PreparedStatement ps = con.prepareStatement("select * from employees where emp_id=? and emp_pass=? and emp_status=1");
+			   System.out.println(ps);
 			    ps.setInt(1, employee.getemp_id());
 			   ps.setString(2,Enc_Dec.encode(employee.getemp_pass()));
 		       

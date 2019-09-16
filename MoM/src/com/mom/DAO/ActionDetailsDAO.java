@@ -11,6 +11,7 @@ import java.util.List;
 
 import com.mom.model.Action;
 import com.mom.model.Employees;
+import com.mom.model.Mom;
 import com.mom.model.Stats;
 
 public class ActionDetailsDAO {
@@ -183,5 +184,72 @@ public class ActionDetailsDAO {
 				System.out.println(e);
 			}
 		return s;
+	}
+	public static List<Mom> getfiltersearch(int emp_id) throws SQLException{
+		List<Mom> li=new ArrayList<Mom>();
+		Connection con=ConnectionDAO.getConnection();
+		PreparedStatement ps=con.prepareStatement("select * from mom m join participants p on p.mom_id=m.mom_id where p.emp_id=?");
+	ps.setInt(1, emp_id);
+		ResultSet rs=ps.executeQuery();
+		
+		while(rs.next()){
+			Mom m=new Mom();
+			m.setMom_id(rs.getInt(1));
+			m.setMom_sub(rs.getString(2));
+			li.add(m);
+			}
+		return li;
+	}
+	public static List<Mom> getMomById(int momid) throws SQLException{
+		List<Mom> li=new ArrayList<Mom>();
+		Connection con=ConnectionDAO.getConnection();
+		PreparedStatement ps=con.prepareStatement("select * from mom where mom_id=?");
+	ps.setInt(1, momid);
+		ResultSet rs=ps.executeQuery();
+		
+		while(rs.next()){
+			Mom m=new Mom();
+			m.setMom_id(rs.getInt(1));
+			m.setMom_sub(rs.getString(2));
+			m.setMom_startdate(rs.getString(3));
+			m.setMom_enddate(rs.getString(4));
+			m.setCreator_id(rs.getInt(5));
+			m.setMom_pointsdiscussed(rs.getString(6));
+			m.setMom_decisiontaken(rs.getString(7));
+			m.setMom_openitems(rs.getString(8));
+			System.out.println(rs.getString(7));
+			li.add(m);
+			}
+		
+		return li;
+	}
+	public static List<Mom> getMomBySub(String momsub) throws SQLException{
+		List<Mom> li=new ArrayList<Mom>();
+		Connection con=ConnectionDAO.getConnection();
+		PreparedStatement ps=con.prepareStatement("select * from mom where mom_subject=?");
+	ps.setString(1, momsub);
+		ResultSet rs=ps.executeQuery();
+		
+		while(rs.next()){
+			Mom m=new Mom();
+			m.setMom_id(rs.getInt(1));
+			m.setMom_sub(rs.getString(2));
+			m.setMom_startdate(rs.getString(3));
+			m.setMom_enddate(rs.getString(4));
+			m.setCreator_id(rs.getInt(5));
+			m.setMom_pointsdiscussed(rs.getString(6));
+			m.setMom_decisiontaken(rs.getString(7));
+			m.setMom_openitems(rs.getString(8));
+			System.out.println(rs.getString(7));
+			li.add(m);
+			}
+		
+		return li;
+	}
+	public static List<Action> getCloseActions(int empid){
+		List<Action> li=new ArrayList<Action>();
+		Connection con=ConnectionDAO.getConnection();
+		PreparedStatement ps=con.prepareStatement("select * from mom where mom_subject=?");
+		return li;
 	}
 }
