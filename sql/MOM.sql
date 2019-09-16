@@ -26,7 +26,7 @@ create table participants( emp_id int,mom_id int, attendence number(1), foreign 
 
 --action table created
 
-create table action(action_id int,action_name varchar2(30),mom_id int,action_due varchar2(30),emp_id int default null,primary key(action_id),foreign key(mom_id) references mom(mom_id));
+create table action(action_id int,action_name varchar2(30),mom_id int,action_due Date,emp_id int default 0,primary key(action_id),foreign key(mom_id) references mom(mom_id));
 
 --sequence created for action_id
 
