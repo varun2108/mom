@@ -262,4 +262,17 @@ public class ActionDetailsDAO {
 		}
 		return li;
 	}
+	public static int CloseAction(int actid){
+		int status=0;
+		try{
+			Connection con=ConnectionDAO.getConnection();
+			PreparedStatement ps=con.prepareStatement("update action_status set CURRENT_STATUS='closed',CLOSED=sysdate where ACTION_ID=?");
+			ps.setInt(1, actid);
+			status=ps.executeUpdate();
+			}catch(Exception e){
+				System.out.println(e);
+			}
+		return status;
+	}	
+
 }

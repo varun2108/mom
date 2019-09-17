@@ -49,7 +49,7 @@ public class CloseAct extends HttpServlet {
 					"<th scope='row'>"+a.getAction_name()+"</th>"+
 		      "<td>"+a.getMomid()+"</td>"+
 		      "<td>"+a.getEmployeeid()+"</td>"+
-		      "<td><button class='btn btn-success'>close</button></td>"+
+		      "<td><a class='btn btn-success' href='CloseAction?act_id="+a.getActionid()+"'>close</a></td>"+
 		      "</tr>";
 		}
 		out.print(op);

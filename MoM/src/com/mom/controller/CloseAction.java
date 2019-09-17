@@ -12,27 +12,17 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.mom.DAO.ActionDetailsDAO;
 
-/**
- * Servlet implementation class Acceptact
- */
-@WebServlet("/Acceptact")
-public class Acceptact extends HttpServlet {
+@WebServlet("/CloseAction")
+public class CloseAction extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public Acceptact() {
+    public CloseAction() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int act_id=Integer.parseInt(request.getParameter("acceptid"));
-		int status=ActionDetailsDAO.AcceptAction(act_id);
+		int act_id=Integer.parseInt(request.getParameter("act_id"));
+		int status=ActionDetailsDAO.CloseAction(act_id);
 		if(status>0){
 			request.setAttribute("actstatus", status);
 			RequestDispatcher rd = request.getRequestDispatcher("AdminDashboard.jsp");
@@ -40,15 +30,12 @@ public class Acceptact extends HttpServlet {
 		}
 		else{
 			PrintWriter out=response.getWriter();
-			out.print("error in accepting the action");
+			out.print("error in saving the status");
 		}
+		
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 
