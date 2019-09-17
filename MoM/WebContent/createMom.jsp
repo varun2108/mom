@@ -37,11 +37,11 @@ background: #1f253d;
 <section class="testimonial py-5" id="testimonial">
     <div class="container"  style="background:white">
         <div class="row ">
-            <div class="col-md-4 py-5 bg-primary text-white text-center ">
+            <div class="col-md-4 py-5 bg-info text-white text-center ">
                 <div class=" ">
                     <div class="card-body">
                         <img src="http://www.ansonika.com/mavia/img/registration_bg.svg" style="width:30%">
-                        <h2 class="py-3">Create MOM</h2>
+                        <h2 class="py-3"><br>Create MOM</h2>
                         <p>Meeting minutes are the written or recorded documentation that is used to inform attendees and non attendees about what was discussed or what happened during a meeting.
 
 </p>
@@ -123,8 +123,8 @@ background: #1f253d;
                           </div>
                     </div>
                     
-                    <div class="form-row">
-                        <button type="submit" class="btn btn-danger forval">Submit</button>
+                    <div class="form-row" style="align: center">
+                        <button type="submit" class="btn btn-success forval" >Submit</button>
                     </div>
                 </form>
             </div>

@@ -21,7 +21,17 @@
 
 
 <link href="css/style2.css" rel="stylesheet">
-
+<style>
+body{
+	background:#1f253d;
+}
+.col1{
+	color:#dee2e6;
+}
+.col2{
+	color:#17a2b8;
+}
+</style>
 </head>
 <body>
 <script>
@@ -40,10 +50,10 @@
 	<nav>
 	<ul>
 		<li class="home-button btn-info "><a href="AdminDashboard.jsp"> Home</a></li>
-		<li><center>
-				<h3 class="text-centeremp">EMPLOYEE DETAILS</h3>
+		<li><center><br>
+				<h3 class="text-centeremp"><strong>EMPLOYEE DETAILS</strong></h3><br>
 			</center></li>
-			<div style="float:right;margin:2%;color:lightblue;" class="text-info"><strong>Number of Employees : <%= list.size() %></strong></div>
+			<div style="float:right;margin:3%;color:lightblue;" class="text-info"><strong>Number of Employees : <%= list.size() %></strong></div>
 
 	</ul>
 
@@ -61,7 +71,7 @@
 			<table
 				class="table table-bordered table-responsive-md table-striped text-center">
 				<thead>
-					<tr>
+					<tr class="col2">
 						<th class="text-center">Employee ID</th>
 						<th class="text-center">Name</th>
 						<th class="text-center">Email</th>
@@ -76,7 +86,7 @@
 				<tbody>
 					
 					<% for(Employees i:list){%>
-					<TR>
+					<TR class="col1">
 						<td class="pt-3-half"><%=i.getemp_id() %></td>
 						<td class="pt-3-half"><%=i.getemp_name()%></td>
 						<td class="pt-3-half"><%=i.getemp_mail()%></td>
@@ -172,7 +182,7 @@
 						<div class="md-form mb-3">
 							<label data-error="wrong" data-success="right" for="Form-email1">Employee
 								Name</label> <input type="text" name="Form_name" id="Form-name"
-								class="form-control validate" required="">
+								class="form-control validate" onkeypress='validatealpa(event)'>
 
 						</div>
 
@@ -187,6 +197,7 @@
 							<label data-error="wrong" data-success="right" for="Form-pass1">Password</label>
 							<input type="password" name="Form_pass" id="Form-pass"
 								class="form-control validate">
+								<span id="pass"></span>
 
 
 						</div>
@@ -258,9 +269,7 @@
 
 	<!-- Template Main Javascript File -->
 	<script src="js/main1.js"></script>
-	<script>
 	
-	</script>
 	<script type="text/javascript">
 	$(document).ready(function(){
 		$('.table-remove').on('click',function(){
@@ -287,6 +296,42 @@
 		});
 	});
 	
+	</script>
+	
+	<script type="text/javascript">
+	function validatealpa(evt) {
+		  var theEvent = evt || window.event;
+
+		  // Handle paste
+		  if (theEvent.type === 'paste') {
+		      key = event.clipboardData.getData('text/plain');
+		  } else {
+		  // Handle key press
+		      var key = theEvent.keyCode || theEvent.which;
+		      key = String.fromCharCode(key);
+		  }
+		  var regex = /^[A-Za-z]+$/;
+		  if( !regex.test(key) ) {
+		    theEvent.returnValue = false;
+		    if(theEvent.preventDefault) theEvent.preventDefault();
+		  }
+		}
+	function CheckPassword(inputtxt) 
+	{ 
+	var passw=  /^[A-Za-z]\w{7,11}$/;
+	if(inputtxt.value.match(passw)) 
+	{ 
+		$("#pass").html('');
+
+	return true;
+	}
+	else
+	{ 
+		$("#pass").html('<small style="color:red">value must contain alphanumaric within the length 7-10<small>');
+		inputtxt.value="";
+	return false;
+	}
+	}
 	</script>
 </body>
 </html>

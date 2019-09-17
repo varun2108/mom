@@ -62,8 +62,8 @@ public class LoginServlet extends HttpServlet {
 			
 		} else {
 			
-			out.print("Sorry username or password error");
-			RequestDispatcher rd = request.getRequestDispatcher("Login.html");
+			request.setAttribute("status", "error");
+			RequestDispatcher rd = request.getRequestDispatcher("Login.jsp");
 			rd.include(request, response);
 		}
 		out.close();}

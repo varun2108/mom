@@ -30,7 +30,11 @@
 <body>
 	
 	<div class="limiter">
+	
 		<div class="container-login100" style="background-image: url('images/bg-05.jpg.jpg');">
+		<div style="position:Absolute;top:2%;left:2%;">
+		<a class="btn btn-info" href="AdminDashboard.jsp">Home</a>
+		</div>
 			<div class="wrap-login100">
 				<form class="login100-form validate-form" action="InsertServlet">
 					
@@ -40,7 +44,7 @@
 					</span>
 
 					<div class="wrap-input100 validate-input" data-validate = "Employee name">
-						<input class="input100" type="text" name="emp_name" placeholder="Employee Name">
+						<input class="input100" type="text" name="emp_name" placeholder="Employee Name" onkeypress='validatealpa(event)'>
 						<span class="focus-input100" data-placeholder="&#xf207"></span>
 					</div>
 
@@ -50,13 +54,16 @@
 					</div>
 
 					<div class="wrap-input100 validate-input" data-validate = "Password">
-						<input class="input100" type="password" name="emp_pass" placeholder="Password"">
-						<span class="focus-input100" data-placeholder="&#xf191";></span>
+						<input class="input100" type="password" name="emp_pass" placeholder="Password" onfocusout="CheckPassword(this) ">
+						<span class="focus-input100" data-placeholder="&#xf191"></span>
+						<span id="pass"></span>
 					</div>
+					
 					
 					<div class="wrap-input100" >
 					
 						<div class="input100">
+						<span class="focus-input100" data-placeholder="&#xf207"></span>
 											<label>Designation &nbsp; &nbsp;
                                                 
 
@@ -74,7 +81,7 @@
 					<span class="focus-input100" data-placeholder="&#xf191";></span>
 						<label>Department Name&nbsp; &nbsp;
 						<select name="dept_id">
-						<option value="1">HR</option>
+						<option value="1">HR</opt ion>
 						<option value="2">Sales</option>
 						<option value="3">SAP</option>
 						<option value="4">Testing</option>
@@ -105,7 +112,42 @@
 	
 
 	<div id="dropDownSelect1"></div>
-	
+	<script type="text/javascript">
+	function validatealpa(evt) {
+		  var theEvent = evt || window.event;
+
+		  // Handle paste
+		  if (theEvent.type === 'paste') {
+		      key = event.clipboardData.getData('text/plain');
+		  } else {
+		  // Handle key press
+		      var key = theEvent.keyCode || theEvent.which;
+		      key = String.fromCharCode(key);
+		  }
+		  var regex = /^[A-Za-z]+$/;
+		  if( !regex.test(key) ) {
+		    theEvent.returnValue = false;
+		    if(theEvent.preventDefault) theEvent.preventDefault();
+		  }
+		}
+	function CheckPassword(inputtxt) 
+	{ 
+	var passw=  /^[A-Za-z]\w{7,11}$/;
+	if(inputtxt.value.match(passw)) 
+	{ 
+		$("#pass").html('');
+
+	return true;
+	}
+	else
+	{ 
+		$("#pass").html('<small style="color:red">value must contain alphanumaric within the length 7-10<small>');
+		inputtxt.value="";
+	return false;
+	}
+	}
+
+	</script>
 <!--===============================================================================================-->
 	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
 <!--===============================================================================================-->

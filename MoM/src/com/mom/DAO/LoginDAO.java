@@ -38,7 +38,7 @@ public class LoginDAO {
 					l.add(name);
 
 			   }
-			
+			   con.close();
 			
 			  
 			} catch (Exception e) {

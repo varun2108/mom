@@ -75,7 +75,7 @@ public class CreateMomDAO {
 		System.out.println(e);
 		status=false;
 	}
-	
+	con.close();
 		return status;
 }
 		

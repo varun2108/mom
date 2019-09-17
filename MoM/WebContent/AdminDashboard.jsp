@@ -75,12 +75,7 @@ a {
 <title>Admin Dashboard</title>
 <body>
 <script type="text/javascript">
-if(${actstatus}>0){
-	alert("action Accepted");
-}
-if(${readysts}>0){
-	alert("Great...! Wainting for creator to close");
-}
+
 </script>
 	<%
 		int empid = (Integer) session.getAttribute("Emp_id");
@@ -95,11 +90,6 @@ if(${readysts}>0){
 			System.out.println(e);
 		}
 	%>
-
-
-
-
-
 
 
 	<div class="container-fixed">
@@ -119,9 +109,9 @@ if(${readysts}>0){
             <div class="col-xs-2 col-xs-offset-2" style="position:absolute;left:44%;top:4.8%;">
                 <form action="#" method="get" id="searchForm" class="input-group">
                     
-                    <div class="input-group-btn search-panel">
-                        <select name="search_param" id="search_param" class="btn btn-default dropdown-toggle form-control" data-toggle="dropdown">
-                            <option value="mom_id">momid</option>
+                    <div class="input-group-btn search-panel w-75">
+                        <select name="search_param" id="search_param" class="btn btn-default form-control">
+                            <option value="mom_id" selected>momid</option>
                             <option value="MOM_SUBJECT">MomSubject</option>
                          </select>
                     </div>
@@ -167,7 +157,7 @@ if(${readysts}>0){
 										Details
 										<div class="menu-box-number"></div></a></li>
 								<br>
-								<li><a class="menu-box-tab" href="Export.html"><span
+								<li><a class="menu-box-tab" href="ExportServlet"><span
 										class="icon entypo-calendar scnd-font-color"></span>Export
 										<div class="menu-box-number"></div></a></li>
 

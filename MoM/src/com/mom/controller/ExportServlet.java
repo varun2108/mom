@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.mom.DAO.ConnectionDAO;
+import com.mom.DAO.ExportDAO;
 import com.mom.model.Employees;
 import com.mom.model.departments;
 /**
@@ -41,14 +42,14 @@ public class ExportServlet extends HttpServlet {
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		
-		 int dept_id=Integer.parseInt(request.getParameter("dept_id"));
-		 String dept_name=request.getParameter("dept_name");  
+		 int dept_id=1;
+		 String dept_name="hr";  
 		
 		 departments d=new departments();  
 		 d.setDept_id(dept_id);
 	        d.setDept_name(dept_name);  
 	        
-	        int status = ConnectionDAO.exportEmployees();
+	        int status = ExportDAO.export();
 			
 			if(status>0)
 			{

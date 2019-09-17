@@ -29,7 +29,7 @@ public class ActionDetailsDAO {
 			a.setAction_name(rs.getString(2));
 			oa.add(a);
 		}
-		
+		con.close();
 		return oa;
 }
 	public static List<Action> getAssignedActions(Integer mom_id) throws SQLException{
@@ -45,7 +45,7 @@ public class ActionDetailsDAO {
 			a.setEmployeeid(rs.getInt(3));
 			aa.add(a);
 		}
-		
+		con.close();
 		return aa;
 	}
 
@@ -62,6 +62,7 @@ public class ActionDetailsDAO {
 			aa.add(a);
 		}
 		
+		con.close();
 		return aa;
 	}
 	public static int AssignActions(Action a) throws SQLException, ParseException{
@@ -83,7 +84,7 @@ public class ActionDetailsDAO {
 		ps1.setInt(1, a.getActionid());
 
 		status=ps1.executeUpdate();
-
+		con.close();
 		return status;
 	}
 	public static List<Action> getEmpAssignedAct(int empid){
@@ -101,9 +102,11 @@ public class ActionDetailsDAO {
 			System.out.println(rs.getString(2));
 			al.add(a);
 		}
+		con.close();
 		}catch(Exception e){
 			System.out.println(e);
 		}
+		
 		return al;
 	}
 
@@ -114,6 +117,7 @@ public class ActionDetailsDAO {
 			PreparedStatement ps=con.prepareStatement("update action_status set CURRENT_STATUS='wip',WIP=sysdate where ACTION_ID=?");
 			ps.setInt(1, actid);
 			status=ps.executeUpdate();
+			con.close();
 			}catch(Exception e){
 				System.out.println(e);
 			}
@@ -134,6 +138,7 @@ public class ActionDetailsDAO {
 			System.out.println(rs.getString(2));
 			al.add(a);
 		}
+		con.close();
 		}catch(Exception e){
 			System.out.println(e);
 		}
@@ -146,6 +151,7 @@ public class ActionDetailsDAO {
 			PreparedStatement ps=con.prepareStatement("update action_status set CURRENT_STATUS='ready_for_closure',READY_FOR_CLOSURE=sysdate where ACTION_ID=?");
 			ps.setInt(1, actid);
 			status=ps.executeUpdate();
+			con.close();
 			}catch(Exception e){
 				System.out.println(e);
 			}
@@ -180,6 +186,7 @@ public class ActionDetailsDAO {
 			rs=ps1.executeQuery();
 			if(rs.next())
 				s.setN_wfc(rs.getInt(1));
+			con.close();
 			}catch(Exception e){
 				System.out.println(e);
 			}
@@ -198,6 +205,7 @@ public class ActionDetailsDAO {
 			m.setMom_sub(rs.getString(2));
 			li.add(m);
 			}
+		con.close();
 		return li;
 	}
 	public static List<Mom> getMomById(int momid) throws SQLException{
@@ -220,7 +228,7 @@ public class ActionDetailsDAO {
 			System.out.println(rs.getString(7));
 			li.add(m);
 			}
-		
+		con.close();
 		return li;
 	}
 	public static List<Mom> getMomBySub(String momsub) throws SQLException{
@@ -243,7 +251,7 @@ public class ActionDetailsDAO {
 			System.out.println(rs.getString(7));
 			li.add(m);
 			}
-		
+		con.close();
 		return li;
 	}
 	public static List<Action> getCloseActions(int empid) throws SQLException{
@@ -260,6 +268,7 @@ public class ActionDetailsDAO {
 			a.setEmployeeid(rs.getInt(4));
 			li.add(a);
 		}
+		con.close();
 		return li;
 	}
 	public static int CloseAction(int actid){
@@ -269,9 +278,12 @@ public class ActionDetailsDAO {
 			PreparedStatement ps=con.prepareStatement("update action_status set CURRENT_STATUS='closed',CLOSED=sysdate where ACTION_ID=?");
 			ps.setInt(1, actid);
 			status=ps.executeUpdate();
+			con.close();
 			}catch(Exception e){
 				System.out.println(e);
+				
 			}
+		
 		return status;
 	}	
 
