@@ -35,7 +35,6 @@ public class searchMom extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String filter=request.getParameter("filter");
 		PrintWriter out=response.getWriter();
 		int emp_id=Integer.parseInt(request.getParameter("emp_id"));
 		
@@ -47,16 +46,9 @@ public class searchMom extends HttpServlet {
 			e.printStackTrace();
 		}
 	    String op="";
-	    if(filter.equals("mom_id")){
 	    for(Mom i:li){
 	    	op="<option value="+i.getMom_id()+">"+i.getMom_id()+"</option>";
 	    }
-	    }
-	    if(filter.equals("MOM_SUBJECT")){
-		    for(Mom i:li){
-		    	op="<option value="+i.getMom_sub()+">"+i.getMom_sub()+"</option>";
-		    }
-		    }
 		out.print(op);
 	}
 

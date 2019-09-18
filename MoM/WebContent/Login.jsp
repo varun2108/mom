@@ -4,8 +4,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
-	<title>Login V3</title>
+<title>LOGIN</title>
+	
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
@@ -51,7 +51,8 @@
 					</div>
 				<form class="login100-form validate-form" action="LoginServlet">
 					<span class="login100-form-logo">
-						<i class="zmdi zmdi-landscape"></i>
+						<img width="100px" height="100px" alt="" src="images/adicon.jpg"
+								style="border-radius: 70%;">
 					</span>
 
 					<span class="login100-form-title p-b-34 p-t-27">

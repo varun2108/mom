@@ -24,6 +24,7 @@ public class ActionDetailsDAO {
 		
 		ResultSet rs=ps.executeQuery();
 		while(rs.next()){
+			System.out.println(rs.getInt(1));
 			Action a=new Action();
 			a.setActionid(rs.getInt(1));
 			a.setAction_name(rs.getString(2));
@@ -39,6 +40,7 @@ public class ActionDetailsDAO {
 		ps.setInt(1, mom_id);
 		ResultSet rs=ps.executeQuery();
 		while(rs.next()){
+			System.out.println(rs.getInt(1));
 			Action a=new Action();
 			a.setActionid(rs.getInt(1));
 			a.setAction_status(rs.getString(2));
@@ -208,11 +210,12 @@ public class ActionDetailsDAO {
 		con.close();
 		return li;
 	}
-	public static List<Mom> getMomById(int momid) throws SQLException{
+	public static List<Mom> getMomById(int momid,int emp_id) throws SQLException{
 		List<Mom> li=new ArrayList<Mom>();
 		Connection con=ConnectionDAO.getConnection();
-		PreparedStatement ps=con.prepareStatement("select * from mom where mom_id=?");
+		PreparedStatement ps=con.prepareStatement("select * from mom m join PARTICIPANTS p on p.mom_id=m.mom_id where m.mom_id=? and p.emp_id=?");
 	ps.setInt(1, momid);
+	ps.setInt(2,emp_id);
 		ResultSet rs=ps.executeQuery();
 		
 		while(rs.next()){

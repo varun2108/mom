@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"
 	import="java.util.*,com.mom.model.*,com.mom.DAO.*"%>
-
+<% if(session.getAttribute("Emp_id")!=null && (((String)session.getAttribute("Role")).equals("employee"))){
+	%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -10,7 +11,7 @@
 <link href="css/style2.css" rel="stylesheet">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-</head>
+	
 <style>
 #customers {
 	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
@@ -71,10 +72,13 @@ a {
 	background-color: #394264;
 }
 </style>
+<title>User Dashboard</title>
 </head>
-<title>Admin Dashboard</title>
 <body>
 <script type="text/javascript">
+function preventBack(){window.history.forward();}
+setTimeout("preventBack()", 0);
+window.onunload=function(){null};
 
 </script>
 	<%
@@ -110,12 +114,8 @@ a {
                 <form action="#" method="get" id="searchForm" class="input-group">
                     
                     <div class="input-group-btn search-panel w-75">
-                        <select name="search_param" id="search_param" class="btn btn-default form-control">
-                            <option value="mom_id" selected>momid</option>
-                            <option value="MOM_SUBJECT">MomSubject</option>
-                         </select>
                     </div>
-                    <input type="text" class="form-control" id="y" name="x" placeholder="Search term..." list="browsers">
+                    <input type="text" class="form-control" id="y" name="x" placeholder="Meeting id..." list="browsers" onkeypress='validate(event)'>
                     <datalist id="browsers">
 						
 					</datalist>
@@ -146,7 +146,21 @@ a {
 					<div class="left-container container col-md-4">
 						<div class="menu-box block">
 							<!-- MENU BOX (LEFT-CONTAINER) -->
-							
+						<!-- MENU BOX (LEFT-CONTAINER) -->
+							<h4 class="titular" style="color: white">EMPLOYEE MENU</h4>
+							<ul class="menu-box-menu">
+								<li><a class="menu-box-tab" href="createMom.jsp"><span
+										class="icon fontawesome-envelope scnd-font-color"></span>Create
+										MoM
+										<div class="menu-box-number"></div></a></li>
+								<br>
+								<li><a class="menu-box-tab" href="ViewMyMom1.jsp"><span
+										class="icon entypo-paper-plane scnd-font-color"></span>View My
+										MoM
+										<div class="menu-box-number"></div></a></li>
+
+
+							</ul>
 						</div>
 					</div>
 
@@ -160,7 +174,10 @@ a {
 							<img width="100px" height="100px" alt="" src="images/adicon.jpg"
 								style="border-radius: 50%;">
 						</center>
-						<br> <br> <br> <br> <br>
+						<center>
+						<h2><%=session.getAttribute("user") %></h2>
+						</center>
+						<br> <br> <br>
 					</div>
 
 
@@ -212,21 +229,7 @@ a {
 
 					<div class="left-container container col-md-4 ">
 						<div class="menu-box block">
-							<!-- MENU BOX (LEFT-CONTAINER) -->
-							<h4 class="titular" style="color: white">EMPLOYEE MENU</h4>
-							<ul class="menu-box-menu">
-								<li><a class="menu-box-tab" href="createMom.jsp"><span
-										class="icon fontawesome-envelope scnd-font-color"></span>Create
-										MoM
-										<div class="menu-box-number"></div></a></li>
-								<br>
-								<li><a class="menu-box-tab" href="ViewMyMom1.jsp"><span
-										class="icon entypo-paper-plane scnd-font-color"></span>View My
-										MoM
-										<div class="menu-box-number"></div></a></li>
-
-
-							</ul>
+							<img src="images/empty.gif" width="100%" height="100%">
 						</div>
 					</div>
 
@@ -265,7 +268,7 @@ a {
 					<div class="container col-md-4">
 						<div class="menu-box block" id="tableHolder">
 							<!-- MENU BOX (LEFT-CONTAINER) -->
-							<h4 class="titular">ACTION IN PROGRESS</h4>
+							<h4 class="titular" style="color: white">ACTION IN PROGRESS</h4>
 							<table
 								class="table table-bordered table-responsive-md table-striped text-center"
 								id="customers">
@@ -404,6 +407,10 @@ a {
 			</div>
 		</div>
 	</div>
+	<div class="alert err" style="display:none;position:fixed;top:2%;left:40%;z-index:100">
+		
+  			
+  			</div>
 	<!-- jQuery library -->
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -411,6 +418,10 @@ a {
 	<!-- Latest compiled JavaScript -->
 	<script
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+		<script src="js/customalert.js"></script>
+				<script src="js/validate.js"></script>
+		
+		
 <script type="text/javascript">
 	$(document).ready(function(){
 		$('.acbtn').on('click',function(){
@@ -429,10 +440,10 @@ a {
 			}).get();
 			$('#actid').val(data[0]);
 		});
-		$("#search_param").blur(function(){
-			var val=$("#search_param").val();
+		$("#y").focus(function(){
+			
 
-			  $.ajax({url: "searchMom?filter="+val+"&emp_id="+<%=empid%>, success: function(result){
+			  $.ajax({url: "searchMom?emp_id="+<%=empid%>, success: function(result){
 				  $("#browsers").html(result);
 			  }});
 
@@ -441,13 +452,11 @@ a {
 			var momid=$("#y").val();
 			
 			var val=$("#search_param").val();
-			$.ajax({url: "MomDet?mom_id="+momid+"&filter="+val, success: function(res){
-				$("#srcontent").html(res);
+			$.ajax({url: "MomDet?mom_id="+momid+"&emp_id="+<%=empid%>, success: function(res){
+				tempAlert("alert-success",res,8000);
 			}
 				
 			});
-			$('#sr').modal('show');
-
 			
 		});
 		$('#nowa').on('click',function(){
@@ -469,4 +478,9 @@ a {
 </script>
 
 </body>
+<%}
+else{
+	response.sendRedirect("index.html");
+}
+%>
 </html>

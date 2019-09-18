@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1" import="java.util.*, com.mom.DAO.*, com.mom.model.*"%>
+	
+<% if(session.getAttribute("Emp_id")!=null && (((String)session.getAttribute("Role")).equals("admin"))){
+	%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -21,6 +24,7 @@
 
 
 <link href="css/style2.css" rel="stylesheet">
+
 <style>
 body{
 	background:#1f253d;
@@ -34,6 +38,10 @@ body{
 </style>
 </head>
 <body>
+<div class="alert err" style="display:none;position:fixed;top:2%;left:40%;z-index:100">
+		
+  			
+  			</div>
 <script>
 	if(${delstatus}){
 		alert("deleted successfully");
@@ -44,6 +52,7 @@ body{
 <script type="text/javascript">
 	if(${updstatus}){
 		alert("updated successfully");
+		tempAlert("alert-success","updated succesfully",8000);
 	}
 </script>
 	<% List<Employees> list=ConnectionDAO.getAllEmployees(); %>
@@ -80,7 +89,7 @@ body{
 						<th class="text-center">Department ID</th>
 						<th class="text-center">Start Date</th>
 						<th class="text-center">Edit</th>
-						<th class="text-center">Remove</th>
+						<th class="text-center">Deactivate</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -94,9 +103,10 @@ body{
 						
 						<td class="pt-3-half"><%=i.getemp_desg()%></td>
 						<td class="pt-3-half"><%=i.getdept_id()%></td>
-						<td class="pt-3-half"><%=i.getemp_startdate()%></td>
+						<% String arr[] = i.getemp_startdate().split(" ", 2);%>
+						<td class="pt-3-half"><%=arr[0]%></td>
 						<td class="pt-3-half"><span class="table-edit"><a class="btn  btn-rounded btn-sm my-0 font btn btn-info" >Edit</a></span></td>
-						<td class="pt-3-half"><span class="table-remove"><a class="btn btn-rounded btn-sm my-0 font btn btn-danger" href='#'>Delete</a></span></td>
+						<td class="pt-3-half"><span class="table-remove"><a class="btn btn-rounded btn-sm my-0 font btn btn-danger" href='#'>Deactivate</a></span></td>
 						<%} %>
 					</TR>
 				</tbody>
@@ -113,7 +123,7 @@ body{
 					<!--Header-->
 					<div class="modal-header d-flex justify-content-center">
 					
-						<p class="heading">Success fully deleted</p>
+						<p class="heading">Successfully deleted</p>
 					</div>
 
 					<!--Body-->
@@ -182,13 +192,13 @@ body{
 						<div class="md-form mb-3">
 							<label data-error="wrong" data-success="right" for="Form-email1">Employee
 								Name</label> <input type="text" name="Form_name" id="Form-name"
-								class="form-control validate" onkeypress='validatealpa(event)'>
+								class="form-control validate" onkeypress='validatealpa(event)' required>
 
 						</div>
 
 						<div class="md-form pb-3">
 							<label data-error="wrong" data-success="right" for="Form-pass1">Email</label>
-							<input type="email" name="Form_email" id="Form-Email" class="form-control validate">
+							<input type="email" name="Form_email" id="Form-Email" class="form-control validate" required>
 
 
 						</div>
@@ -196,7 +206,7 @@ body{
 						<div class="md-form pb-3">
 							<label data-error="wrong" data-success="right" for="Form-pass1">Password</label>
 							<input type="password" name="Form_pass" id="Form-pass"
-								class="form-control"  onfocusout="CheckPassword(this)">
+								class="form-control"  onfocusout="CheckPassword(this)" required>
 								<span id="pass"></span>
 
 
@@ -204,7 +214,7 @@ body{
 
 						<div class="md-form pb-3">
 							<label data-error="wrong" data-success="right" for="Form-pass1">Designation</label>
-							<select class="form-control" name="Form_desi" id="Form-desi" class="form-control validate">
+							<select class="form-control" name="Form_desi" id="Form-desi" class="form-control validate" required>
   								<option value="admin">Admin</option>
  								 <option value="employee">Employee</option>
 						</select>
@@ -214,7 +224,7 @@ body{
 						<label data-error="wrong" data-success="right" for="Form-pass1">Department
 							ID</label>
 						<div class="md-form pb-3">
-						<select class="form-control" name="Form_dept" id="Form-depa" class="form-control validate">
+						<select class="form-control" name="Form_dept" id="Form-depa" class="form-control validate" required>
   								<option value="1">HR</option>
  								 <option value="2">Sales</option>
  								 <option value="3">SAP</option>
@@ -270,6 +280,7 @@ body{
 	<!-- Template Main Javascript File -->
 	<script src="js/main1.js"></script>
 	<script src="js/validate.js"></script>
+	<script src="js/customalert"></script>
 	<script type="text/javascript">
 	$(document).ready(function(){
 		$('.table-remove').on('click',function(){
@@ -294,8 +305,10 @@ body{
 		
 		});
 	});
-	
 	</script>
 	
 </body>
+<%}else{response.sendRedirect("index.html");
+	}%>
+}
 </html>

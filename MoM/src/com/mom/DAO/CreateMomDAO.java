@@ -54,9 +54,9 @@ public class CreateMomDAO {
 			ps3.setInt(2, mom_id);
 			a=ps3.executeUpdate();
 			
-			PreparedStatement ps4 = con.prepareStatement("select action_id from action where ACTION_NAME=?");
+			PreparedStatement ps4 = con.prepareStatement("select action_id from action where ACTION_NAME=? and mom_id=?");
 			ps4.setString(1, act[i].getAction_name());
-			
+			ps4.setInt(2,mom_id);
 			rs=ps4.executeQuery();
 			int aid=0;
 			if(rs.next())

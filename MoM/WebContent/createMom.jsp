@@ -58,7 +58,7 @@ background: #1f253d;
                 </div>
             </div>
                 <div class="col-md-8 py-5 border">
-                <h4 class="pb-4">Please fill following details</h4>
+                <h4 class="pb-4">Please fill following details:</h4>
  				<div style="color:gray;font-weight: lighter">
                 <form action="CreateMom">
                     <div class="form-row" >
@@ -68,7 +68,7 @@ background: #1f253d;
                         </div>
                         <div class="form-group col-md-6">
                         			 <label>No Of Participants <small style="color:red">*(including you)</small></label>
-                                   <input id="inputState" name="no_of_p" placeholder="number of participents" class="form-control" type="number" onblur="val(this)" required>
+                                   <input id="inputState" name="no_of_p" placeholder="Number of participents" class="form-control" type="number" onblur="val(this)" required>
                                  
   									<input name="creatorid" type="hidden" value='<%=session.getAttribute("Emp_id") %>' required>                           
                         </div>
@@ -77,18 +77,18 @@ background: #1f253d;
                         </div>
                        <div class="form-row col-md-12">
                         <div class="form-group col-md-6">
-                        <label>Meating Start Time & Date :</label>
+                        <label>Meeting Start Time & Date :</label>
 							<div class="input-group date" id="datetimepicker1">	
-								<input type="text" name="startdate" class="form-control" placeholder="start date" required/> <span
+								<input type="text" name="startdate" class="form-control" placeholder="Start date" required/> <span
 									class="input-group-addon"> <span
 									class="glyphicon glyphicon-calendar"></span>
 								</span>
 							</div>
 						</div>
 						<div class="form-group col-md-6">
-						<label>Meating End Time & Date :</label>
+						<label>Meeting End Time & Date :</label>
 							<div class='input-group date' id='datetimepicker2'>
-								<input type='text' name="enddate" class="form-control" placeholder="end date" required/> <span
+								<input type='text' name="enddate" class="form-control" placeholder="End date" required/> <span
 									class="input-group-addon"> <span
 									class="glyphicon glyphicon-calendar"></span>
 								</span>
@@ -97,21 +97,21 @@ background: #1f253d;
 						</div>
 						<div class="form-row col-md-12">
                         <div class="form-group col-md-12">
-                  				<label>PointsDiscussed :</label>
-                                  <textarea id="comment" name="pointsdiscussed" cols="40" rows="5" class="form-control" placeholder="pointsdiscussed" maxlength = "210" required></textarea>
+                  				<label>Points Discussed :</label>
+                                  <textarea id="comment" name="pointsdiscussed" cols="40" rows="5" class="form-control" placeholder="Points discussed" maxlength = "210" required></textarea>
                         </div>
                     </div>
         			<div class="form-row col-md-12">
                         <div class="form-group col-md-12">
-                        <label>DesisionsTaken :</label>
-                                  <textarea id="comment" name="desisionstaken" cols="40" rows="5" class="form-control" placeholder="desissions taken" maxlength = "210" required></textarea>
+                        <label>Decisions Taken :</label>
+                                  <textarea id="comment" name="desisionstaken" cols="40" rows="5" class="form-control" placeholder="Decisions taken" maxlength = "210" required></textarea>
                         </div>
                         
                     </div>
                     <div class="form-row col-md-12">
                      <div class="form-group col-md-6">
                      <label>Number Of Actions :</label>
-                                   <input id="no_of_act" name="no_of_oct" placeholder="number of actions" class="form-control" type="number" onblur="val(this)" required>
+                                   <input id="no_of_act" name="no_of_oct" placeholder="Number of actions" class="form-control" type="number" onblur="val(this)" required>
                     </div>
                     <div class="form-group col-md-6" id="foract">
                                   
@@ -120,7 +120,7 @@ background: #1f253d;
                     <div class="form-row col-md-12">
                         <div class="form-group col-md-12">
                         <label>Open Items :</label>
-                                  <textarea id="openitems" name="mom_open" cols="40" rows="5" class="form-control" placeholder="open Items" maxlength = "210" required></textarea>
+                                  <textarea id="openitems" name="mom_open" cols="40" rows="5" class="form-control" placeholder="Open Items" maxlength = "210" required></textarea>
                         </div>
                         
                     </div>

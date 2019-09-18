@@ -184,9 +184,9 @@ $(document).ready(function() {
 %>
 	<div class="container-fixed">
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">Select Your Meating</a>
+    <a class="navbar-brand" href="#">SELECT YOUR MEETING</a>
     <div class="nav navbar-nav navbar-right">
- 	<a class="btn btn-info" style="margin-left:75vw;" href="DashRedirect">home</a>
+ 	<a class="btn btn-info" style="margin-left:75vw;" href="DashRedirect">HOME</a>
  	</div>
   </nav>
 </div>
@@ -210,7 +210,7 @@ $(document).ready(function() {
  
 	</div>
 	<center>
-	<button type="submit" class="btn btn-primary">submit</button>
+	<button type="submit" class="btn btn-primary">Submit</button>
 	</center>
 </form>
 </div>

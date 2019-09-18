@@ -34,7 +34,7 @@ if(${asstatus}){
 	int momid=Integer.parseInt(request.getParameter("mom_id"));
 %>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Acrion Details</a>
+    <a class="navbar-brand" href="#">Action Details</a>
     <div class="nav navbar-nav navbar-right">
  	<a class="btn btn-info" style="margin-left:75vw;" href="DashRedirect">home</a>
  	</div>
@@ -113,7 +113,7 @@ if(${asstatus}){
 						<input type="hidden" id="delid" name="actionid">
 						<input type="hidden" name="mom_id" value="<%=momid%>">
 						<label>Select Employee
-								<input list="browsers" name="employeeid" class="form-control">
+								<input list="browsers" name="employeeid" class="form-control" required>
 								<datalist id="browsers">
 								</datalist>
 								</label>

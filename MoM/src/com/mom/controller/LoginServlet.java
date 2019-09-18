@@ -56,8 +56,7 @@ public class LoginServlet extends HttpServlet {
 			response.sendRedirect("AdminDashboard.jsp");  
 			}
 			else{
-				RequestDispatcher rd = request.getRequestDispatcher("UserDashboard.jsp");
-				rd.forward(request, response);
+				response.sendRedirect("UserDashboard.jsp");
 			}
 			
 		} else {

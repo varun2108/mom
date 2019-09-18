@@ -35,28 +35,17 @@ public class MomDet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-	String filter=request.getParameter("filter");
 	PrintWriter out=response.getWriter();
 	List<Mom> li=new ArrayList<Mom>();
-	System.out.println(filter);
-	if(filter.equals("mom_id")){
 	int mom_id=Integer.parseInt(request.getParameter("mom_id"));
+	int emp_id=Integer.parseInt(request.getParameter("emp_id"));
 		try {
-			li=ActionDetailsDAO.getMomById(mom_id);
+			li=ActionDetailsDAO.getMomById(mom_id,emp_id);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
-	if(filter.equals("MOM_SUBJECT")){
-		String mom_sub=request.getParameter("mom_id");
-		try {
-			li=ActionDetailsDAO.getMomBySub(mom_sub);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+	
 	String op="";
 	for(Mom i:li){
 		op+="<p style='color:black'>mom_id :"+i.getMom_id()+"<br>"+"mom_subject"+i.getMom_sub()+"<br> mom_startDate :"+i.getMom_startdate()+"<br> mom_enddate"+i.getMom_enddate()+"<br> mom_points Discussed"+i.getMom_pointsdiscussed()+"<br> Desissions Taken :"+i.getMom_decisiontaken()+"<br> open Items"+i.getMom_openitems()+"</p>";
