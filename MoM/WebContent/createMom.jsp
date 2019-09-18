@@ -27,11 +27,18 @@ background: #1f253d;
 	<script>
 	
 	$(function() {
-		  $('#datetimepicker1').datetimepicker({format: 'YYYY-MM-DD HH:mm'});
+		  $('#datetimepicker1').datetimepicker({format: 'YYYY-MM-DD HH:mm'
+			 
 		});
-	$(function() {
+		  $("#datetimepicker1").on("dp.change", function (e) {
+			  alert(e.date);
+	            $('#datetimepicker2').data("DateTimePicker").minDate(e.date);
+	        });
 		  $('#datetimepicker2').datetimepicker({format: 'YYYY-MM-DD HH:mm'});
-		});
+		  $("#datetimepicker2").on("dp.change", function (e) {
+	            $('#datetimepicker1').data("DateTimePicker").maxDate(e.date);
+	        });
+		  });
 </script>
 <body>
 <section class="testimonial py-5" id="testimonial">
@@ -45,36 +52,43 @@ background: #1f253d;
                         <p>Meeting minutes are the written or recorded documentation that is used to inform attendees and non attendees about what was discussed or what happened during a meeting.
 
 </p>
-				
+						<br><br><br>
+						<a href="DashRedirect" class="btn btn-default">Home</a>
                     </div>
                 </div>
             </div>
                 <div class="col-md-8 py-5 border">
                 <h4 class="pb-4">Please fill following details</h4>
+ 				<div style="color:gray;font-weight: lighter">
                 <form action="CreateMom">
                     <div class="form-row" >
                         <div class="form-group col-md-6" >
-                          <input id="Full Name" name="subject" placeholder="Subject" class="form-control" type="text">
+                        <label>Subject</label>
+                          <input id="Full Name" name="subject" placeholder="Subject" class="form-control" type="text" required>
                         </div>
                         <div class="form-group col-md-6">
-                                   <input id="inputState" name="no_of_p" placeholder="number of participents" class="form-control" type="number">
-  									<input name="creatorid" type="hidden" value='<%=session.getAttribute("Emp_id") %>'>                           
+                        			 <label>No Of Participants <small style="color:red">*(including you)</small></label>
+                                   <input id="inputState" name="no_of_p" placeholder="number of participents" class="form-control" type="number" onblur="val(this)" required>
+                                 
+  									<input name="creatorid" type="hidden" value='<%=session.getAttribute("Emp_id") %>' required>                           
                         </div>
                         <div id="forpart" class="col-md-12">
                         
                         </div>
                        <div class="form-row col-md-12">
                         <div class="form-group col-md-6">
-							<div class="input-group date" id="datetimepicker1">
-								<input type="text" name="startdate" class="form-control" placeholder="start date" /> <span
+                        <label>Meating Start Time & Date :</label>
+							<div class="input-group date" id="datetimepicker1">	
+								<input type="text" name="startdate" class="form-control" placeholder="start date" required/> <span
 									class="input-group-addon"> <span
 									class="glyphicon glyphicon-calendar"></span>
 								</span>
 							</div>
 						</div>
 						<div class="form-group col-md-6">
+						<label>Meating End Time & Date :</label>
 							<div class='input-group date' id='datetimepicker2'>
-								<input type='text' name="enddate" class="form-control" placeholder="end date" /> <span
+								<input type='text' name="enddate" class="form-control" placeholder="end date" required/> <span
 									class="input-group-addon"> <span
 									class="glyphicon glyphicon-calendar"></span>
 								</span>
@@ -83,18 +97,21 @@ background: #1f253d;
 						</div>
 						<div class="form-row col-md-12">
                         <div class="form-group col-md-12">
-                                  <textarea id="comment" name="pointsdiscussed" cols="40" rows="5" class="form-control" placeholder="pointsdiscussed"></textarea>
+                  				<label>PointsDiscussed :</label>
+                                  <textarea id="comment" name="pointsdiscussed" cols="40" rows="5" class="form-control" placeholder="pointsdiscussed" maxlength = "210" required></textarea>
                         </div>
                     </div>
         			<div class="form-row col-md-12">
                         <div class="form-group col-md-12">
-                                  <textarea id="comment" name="desisionstaken" cols="40" rows="5" class="form-control" placeholder="desissions taken"></textarea>
+                        <label>DesisionsTaken :</label>
+                                  <textarea id="comment" name="desisionstaken" cols="40" rows="5" class="form-control" placeholder="desissions taken" maxlength = "210" required></textarea>
                         </div>
                         
                     </div>
                     <div class="form-row col-md-12">
                      <div class="form-group col-md-6">
-                                   <input id="no_of_act" name="no_of_oct" placeholder="number of actions" class="form-control" type="number">
+                     <label>Number Of Actions :</label>
+                                   <input id="no_of_act" name="no_of_oct" placeholder="number of actions" class="form-control" type="number" onblur="val(this)" required>
                     </div>
                     <div class="form-group col-md-6" id="foract">
                                   
@@ -102,7 +119,8 @@ background: #1f253d;
                     </div>
                     <div class="form-row col-md-12">
                         <div class="form-group col-md-12">
-                                  <textarea id="openitems" name="mom_open" cols="40" rows="5" class="form-control" placeholder="open Items"></textarea>
+                        <label>Open Items :</label>
+                                  <textarea id="openitems" name="mom_open" cols="40" rows="5" class="form-control" placeholder="open Items" maxlength = "210" required></textarea>
                         </div>
                         
                     </div>
@@ -127,11 +145,34 @@ background: #1f253d;
                         <button type="submit" class="btn btn-success forval" >Submit</button>
                     </div>
                 </form>
+                </div>
             </div>
         </div>
     </div>
 </section>
 
+			<div class="alert alert-danger err" style="display:none;position:fixed;top:2%;left:40%;width:50%;height:10%;z-index:100">
+		
+  			
+  			</div>
+<script type="text/javascript">
+function tempAlert(msg,duration)
+{
+ 	$(".err").html("<center>"+msg+"</center>");
+ setTimeout(function(){
+	 $(".err").css("display","none");
+ },duration);
+ 	$(".err").css("display","block");
+}
+function val(t){
+	var number=parseInt(t.value);
+	if(number<1 || number>15){
+		
+		t.value=0;
+		tempAlert("value must be between 1 and 15",1000);
+	}
+}
+</script>
 
 
 </body>

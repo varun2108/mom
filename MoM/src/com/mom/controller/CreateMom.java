@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -86,7 +87,9 @@ public class CreateMom extends HttpServlet {
 			//java.util.Date date=sdf1.parse(startdate);
 			boolean status=CreateMomDAO.CreateMom(meating,part,part_number,act,no_oct);
 			if(status){
-				
+				request.setAttribute("mom", status);
+				RequestDispatcher rd = request.getRequestDispatcher("DashRedirect");
+				rd.forward(request, response);
 			}
 		}catch(Exception e){
 			System.out.println(e);

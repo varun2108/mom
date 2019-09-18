@@ -25,7 +25,7 @@ public class CloseAction extends HttpServlet {
 		int status=ActionDetailsDAO.CloseAction(act_id);
 		if(status>0){
 			request.setAttribute("actstatus", status);
-			RequestDispatcher rd = request.getRequestDispatcher("AdminDashboard.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("DashRedirect");
 			rd.forward(request, response);
 		}
 		else{

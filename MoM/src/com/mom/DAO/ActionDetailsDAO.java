@@ -52,7 +52,7 @@ public class ActionDetailsDAO {
 	public static List<Employees> getParticipants(Integer mom_id) throws SQLException{
 		List<Employees> aa=new ArrayList<Employees>();
 		Connection con=ConnectionDAO.getConnection();
-		PreparedStatement ps=con.prepareStatement("select p.emp_id,e.emp_name from participants p join employees e on p.emp_id=e.emp_id where mom_id=?");
+		PreparedStatement ps=con.prepareStatement("select p.emp_id,e.emp_name from participants p join employees e on p.emp_id=e.emp_id where mom_id=? and e.EMP_STATUS=1");
 		ps.setInt(1, mom_id);
 		ResultSet rs=ps.executeQuery();
 		while(rs.next()){

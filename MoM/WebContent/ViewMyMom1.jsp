@@ -184,7 +184,10 @@ $(document).ready(function() {
 %>
 	<div class="container-fixed">
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">Select Your MOM</a>
+    <a class="navbar-brand" href="#">Select Your Meating</a>
+    <div class="nav navbar-nav navbar-right">
+ 	<a class="btn btn-info" style="margin-left:75vw;" href="DashRedirect">home</a>
+ 	</div>
   </nav>
 </div>
 	

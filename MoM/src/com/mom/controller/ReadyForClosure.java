@@ -35,7 +35,7 @@ public class ReadyForClosure extends HttpServlet {
 		int status=ActionDetailsDAO.ActionReady(act_id);
 		if(status>0){
 			request.setAttribute("readysts", status);
-			RequestDispatcher rd = request.getRequestDispatcher("AdminDashboard.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("DashRedirect");
 			rd.forward(request, response);
 		}
 		else{

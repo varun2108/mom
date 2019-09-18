@@ -41,7 +41,7 @@ function partcontrol(n){
 	for(var i=1;i<=n;i++){
 	dyn+=' <div class="form-row col-md-12">'
 		+'<div class="form-group col-md-6">'
-          +'<select id="" name="part'+i+'" placeholder="Participent Id'+i+'" list="json-datalist" class="form-control FullName" type="text" style="height:100%"><option selected>choose employee</option></select>'
+          +'<select id="" name="part'+i+'" placeholder="Participent Id'+i+'" list="json-datalist" class="form-control FullName" type="text" style="height:100%" required><option selected>choose employee</option></select>'
                        +'</div>'
                        +'<div class="form-group col-md-6>'
                        +'<input type="radio" name="presence" value="dont know">'
@@ -55,7 +55,7 @@ function partcontrol(n){
 function actcontrol(n){
 	var dyn='';
 	for(var i=1;i<=n;i++){
-	dyn+='<input id="Full Name" name="action'+i+'" placeholder="Action'+i+'" class="form-control" type="text">';
+	dyn+='<input id="Full Name" name="action'+i+'" placeholder="Action'+i+'" class="form-control" type="text" requiired>';
                       
 	}
 	

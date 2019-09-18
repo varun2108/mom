@@ -196,7 +196,7 @@ body{
 						<div class="md-form pb-3">
 							<label data-error="wrong" data-success="right" for="Form-pass1">Password</label>
 							<input type="password" name="Form_pass" id="Form-pass"
-								class="form-control validate">
+								class="form-control"  onfocusout="CheckPassword(this)">
 								<span id="pass"></span>
 
 
@@ -269,7 +269,7 @@ body{
 
 	<!-- Template Main Javascript File -->
 	<script src="js/main1.js"></script>
-	
+	<script src="js/validate.js"></script>
 	<script type="text/javascript">
 	$(document).ready(function(){
 		$('.table-remove').on('click',function(){
@@ -289,7 +289,6 @@ body{
 			$('#id').val(data[0]);
 			$('#Form-name').val(data[1]);
 			$('#Form-email').val(data[2]);
-			$('#Form-pass').val(data[3]);
 			$('#Form-desi').val(data[4]);
 			$('#Form-depa').val(data[5]);
 		
@@ -298,40 +297,5 @@ body{
 	
 	</script>
 	
-	<script type="text/javascript">
-	function validatealpa(evt) {
-		  var theEvent = evt || window.event;
-
-		  // Handle paste
-		  if (theEvent.type === 'paste') {
-		      key = event.clipboardData.getData('text/plain');
-		  } else {
-		  // Handle key press
-		      var key = theEvent.keyCode || theEvent.which;
-		      key = String.fromCharCode(key);
-		  }
-		  var regex = /^[A-Za-z]+$/;
-		  if( !regex.test(key) ) {
-		    theEvent.returnValue = false;
-		    if(theEvent.preventDefault) theEvent.preventDefault();
-		  }
-		}
-	function CheckPassword(inputtxt) 
-	{ 
-	var passw=  /^[A-Za-z]\w{7,11}$/;
-	if(inputtxt.value.match(passw)) 
-	{ 
-		$("#pass").html('');
-
-	return true;
-	}
-	else
-	{ 
-		$("#pass").html('<small style="color:red">value must contain alphanumaric within the length 7-10<small>');
-		inputtxt.value="";
-	return false;
-	}
-	}
-	</script>
 </body>
 </html>

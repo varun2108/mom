@@ -33,7 +33,14 @@ if(${asstatus}){
 	aa=ActionDetailsDAO.getAssignedActions(Integer.parseInt(request.getParameter("mom_id")));
 	int momid=Integer.parseInt(request.getParameter("mom_id"));
 %>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Acrion Details</a>
+    <div class="nav navbar-nav navbar-right">
+ 	<a class="btn btn-info" style="margin-left:75vw;" href="DashRedirect">home</a>
+ 	</div>
+  </nav>
 <div class="container">
+
  <div class="row">
   <div class="col-6 mt-5 text-center">
    <h2>Open Items</h2>
