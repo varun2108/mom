@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1" import="com.mom.DAO.*, java.sql.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<% if(session.getAttribute("Emp_id")!=null){
+	%>
 <html>
 <head>
 <meta charset="utf-8">
@@ -215,6 +217,8 @@ $(document).ready(function() {
 </form>
 </div>
 	
-		
+		<%}else{
+	response.sendRedirect("index.html");
+}%>
 </body>
 </html>

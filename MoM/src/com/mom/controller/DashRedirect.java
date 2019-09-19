@@ -31,12 +31,11 @@ public class DashRedirect extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
 		if(((String)session.getAttribute("Role")).equals("admin")){
-			RequestDispatcher rd = request.getRequestDispatcher("AdminDashboard.jsp");
-			rd.forward(request, response);
+			
+			response.sendRedirect("AdminDashboard.jsp");
 		}
 		else{
-			RequestDispatcher rd = request.getRequestDispatcher("UserDashboard.jsp");
-			rd.forward(request, response);
+			response.sendRedirect("UserDashboard.jsp");  
 		}
 		
 	}

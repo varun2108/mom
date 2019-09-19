@@ -25,12 +25,11 @@ public class CloseAction extends HttpServlet {
 		int status=ActionDetailsDAO.CloseAction(act_id);
 		if(status>0){
 			request.setAttribute("actstatus", status);
-			RequestDispatcher rd = request.getRequestDispatcher("DashRedirect");
-			rd.forward(request, response);
+			response.sendRedirect("DashRedirect");  
 		}
 		else{
 			PrintWriter out=response.getWriter();
-			out.print("error in saving the status");
+			out.print("error in closing action");
 		}
 		
 	}

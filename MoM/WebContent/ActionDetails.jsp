@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 pageEncoding="ISO-8859-1" import="java.util.*,com.mom.model.*,com.mom.DAO.*"%>
+<% if(session.getAttribute("Emp_id")!=null){
+	%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -120,7 +122,7 @@ if(${asstatus}){
 						<div class="wrap-input100 validate-input input100" data-validate = "Start Date">
 					<span class="focus-input100" data-placeholder="&#xf133;"></span>
 						<label>Due Date &nbsp; &nbsp;
-						<input class="form-control" type="date" name="emp_duedate" placeholder="Due Date">
+						<input class="form-control" type="date" name="emp_duedate" placeholder="Due Date" value="2019-09-19">
 						
 						</label>
 						<br>
@@ -183,5 +185,9 @@ if(${asstatus}){
 	 });
   });
  </script>
+ <%}else{
+	 response.sendRedirect("index.html");
+	 }%>
+ }
 </body>
 </html>

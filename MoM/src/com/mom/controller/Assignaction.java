@@ -1,6 +1,7 @@
 package com.mom.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.text.ParseException;
 
@@ -56,6 +57,9 @@ public class Assignaction extends HttpServlet {
 			request.setAttribute("asstatus", status);
 			RequestDispatcher rd = request.getRequestDispatcher("ActionDetails.jsp?mom_id="+momid);
 			rd.forward(request, response);
+		}else{
+			PrintWriter out=response.getWriter();
+			out.print("error in assigning actions");
 		}
 	}
 

@@ -41,6 +41,9 @@ public class DeactivateServlet extends HttpServlet {
 		RequestDispatcher rd = request.getRequestDispatcher("view.jsp");
 		rd.forward(request, response);
 		}
+		else{
+			out.print("error in deactivating the employee");
+		}
 	}
 
 	

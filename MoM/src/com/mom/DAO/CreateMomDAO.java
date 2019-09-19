@@ -18,13 +18,10 @@ public class CreateMomDAO {
 	try{
 		PreparedStatement ps = con.prepareStatement("insert into mom values(mom_id.nextval,?,?,?,?,?,?,?)");
 		ps.setString(1, mom.getMom_sub());
-		SimpleDateFormat sdf1=new SimpleDateFormat("dd-MM-yyyy hh:mm");
-		java.util.Date sjdate=sdf1.parse(mom.getMom_startdate());
-		java.sql.Date sqdate=new java.sql.Date(sjdate.getTime());
-		java.util.Date ejdate=sdf1.parse(mom.getMom_enddate());
-		java.sql.Date eqdate=new java.sql.Date(ejdate.getTime());
-		ps.setDate(2,sqdate);
-		ps.setDate(3, eqdate);
+		String sdate=mom.getMom_startdate();
+		String edate=mom.getMom_enddate();
+		ps.setString(2,sdate);
+		ps.setString(3, edate);
 		ps.setInt(4, mom.getCreator_id());
 		ps.setString(5, mom.getMom_pointsdiscussed());
 		ps.setString(6, mom.getMom_decisiontaken());

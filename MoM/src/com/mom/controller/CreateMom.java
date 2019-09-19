@@ -90,6 +90,9 @@ public class CreateMom extends HttpServlet {
 				request.setAttribute("mom", status);
 				RequestDispatcher rd = request.getRequestDispatcher("DashRedirect");
 				rd.forward(request, response);
+			}else{
+				PrintWriter out=response.getWriter();
+				out.print("error in creating The MoM");
 			}
 		}catch(Exception e){
 			System.out.println(e);

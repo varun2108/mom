@@ -64,6 +64,8 @@ public class Editservlet extends HttpServlet {
 			request.setAttribute("updstatus", status);
 			RequestDispatcher rd = request.getRequestDispatcher("view.jsp");
 			rd.forward(request, response);
+			}else{
+				out.print("error in updating the employee");
 			}
 	}
 
