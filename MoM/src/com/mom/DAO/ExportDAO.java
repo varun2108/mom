@@ -1,29 +1,37 @@
 package com.mom.DAO;
 
-import java.io.File;
-import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
-import jxl.*;
-
-
+import com.mom.model.Export;
 
 public class ExportDAO {
 
-	public static void export() throws IOException, WebServiceException
-	{
+	public static List<Export> export(){
+		List<Export> exp=new ArrayList<Export>();
 		try{
-			String fileName="D:\\file1.xls";
-			WritableWorkbook workbook = Workbook.createWorkbook(new File(fileName));
-			WritableSheet sheet = workbook.createSheet("Sheet1", 0);
-			Label label=new Label(0,0,"record1");
-			sheet.addCell(label);
-			Number number=new Number(0,1,3.1459);
-			sheet.addCell(number);
-			
-			workbook.write();
-			workbook.close();
-		}catch(WriteException e)
+			Connection con=ConnectionDAO.getConnection();
+			String query="SELECT emp_id,COUNT(mom_ID),SUM(CASE WHEN attendence = 1 THEN 1 ELSE 0 END),SUM(CASE WHEN attendence = 0 THEN 1 ELSE 0 END),SUM(CASE WHEN attendence = 0 THEN 1 ELSE 0 END)*100.0/COUNT(EMP_ID) FROM participants GROUP BY emp_id order by emp_id";
+			PreparedStatement ps=con.prepareStatement(query);
+			ResultSet rs=ps.executeQuery();
+			while(rs.next()){
+				Export e=new Export();
+				e.setEmp_id(rs.getInt(1));
+				e.setNo_of_meetings(rs.getInt(2));
+				e.setPresent(rs.getInt(3));
+				e.setAbsent(rs.getInt(4));
+				e.setPer(rs.getFloat(5));
+				exp.add(e);
+				System.out.println("here");
+			}
+		}catch(Exception e)
 		{
+			System.out.println(e);
 		}
+		return exp;
 	}
+	
 }

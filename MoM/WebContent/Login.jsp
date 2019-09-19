@@ -49,7 +49,7 @@
   <strong>Error!</strong> Invalid Credentials.
 
 					</div>
-				<form class="login100-form validate-form" action="LoginServlet">
+				<form class="login100-form validate-form" action="LoginServlet" method="post">
 					<span class="login100-form-logo">
 						<img width="100px" height="100px" alt="" src="images/adicon.jpg"
 								style="border-radius: 70%;">

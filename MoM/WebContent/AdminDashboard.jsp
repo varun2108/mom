@@ -157,7 +157,7 @@ window.onunload=function(){null};
 										Details
 										<div class="menu-box-number"></div></a></li>
 								<br>
-								<li><a class="menu-box-tab" href="ExportServlet"><span
+								<li><a class="menu-box-tab" href="export1.jsp"><span
 										class="icon entypo-calendar scnd-font-color"></span>Export
 										<div class="menu-box-number"></div></a></li>
 
